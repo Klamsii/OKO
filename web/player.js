@@ -1,8 +1,8 @@
 export function formatTime(value, fractional=false){
   if(!Number.isFinite(value)||value<0)return '00:00';
-  const sec=Math.floor(value),hours=Math.floor(sec/3600),minutes=Math.floor(sec/60)%60;
+  const milliseconds=Math.round(value*1000),sec=fractional?Math.floor(milliseconds/1000):Math.floor(value),hours=Math.floor(sec/3600),minutes=Math.floor(sec/60)%60;
   const stamp=`${String(minutes).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
-  return (hours?`${hours}:`:'')+stamp+(fractional&&value%1?`.${Math.floor(value%1*10)}`:'');
+  return (hours?`${hours}:`:'')+stamp+(fractional?`.${String(milliseconds%1000).padStart(3,'0')}`:'');
 }
 
 export class VideoPlayer{
