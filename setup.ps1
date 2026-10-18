@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $envPath = Join-Path $projectRoot '.env'
 $modelDir = Join-Path $projectRoot 'model'
@@ -16,7 +16,7 @@ if (-not (Test-Path -LiteralPath $envPath)) {
 }
 
 if (Select-String -LiteralPath $envPath -Pattern '^ANALYSIS_BACKEND=datathon$' -Quiet) {
-    Write-Host 'OKA использует наш GPU API. Подключение: .\connect-server.ps1'
+    Write-Host 'OKO использует наш GPU API. Подключение: .\connect-server.ps1'
     return
 }
 if (-not (Test-Path -LiteralPath $modelDir)) {

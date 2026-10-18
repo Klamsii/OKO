@@ -1,0 +1,43 @@
+/* Connection controls and status screens adapted from AmirBro0/2, 8983c777.
+   The existing cherry world artwork and rendering stay with Worlds. */
+.welcome-scene .mc-glyphs{display:inline-block;vertical-align:middle;image-rendering:pixelated;filter:drop-shadow(2px 2px 0 #252525)}
+.welcome-scene .key-form{width:min(430px,100%);max-width:none;margin:0 auto;text-align:left}
+.welcome-scene .key-form label{display:block;margin:0 0 9px;font:700 18px/1 "Courier New",Consolas,monospace;letter-spacing:0;color:#fff;text-shadow:2px 2px #242424}
+.welcome-scene .key-field{position:relative;display:block;height:auto;border:0;outline:0;box-shadow:none;background:none;transition:none}
+.welcome-scene .key-field:focus-within{outline:0;outline-offset:0}
+.welcome-scene .key-field input{display:block;min-width:0;width:100%;height:42px;padding:4px 8px;border:2px solid #b7b7b7;border-radius:0;outline:2px solid #080808;outline-offset:0;background:#080808;color:transparent;caret-color:transparent;-webkit-text-fill-color:transparent;font:20px "Courier New",Consolas,monospace;letter-spacing:0;box-shadow:inset 2px 2px #242424;transition:none}
+.welcome-scene .key-field input:focus{border-color:#fff}
+.welcome-scene .key-field input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #080808 inset;-webkit-text-fill-color:transparent;caret-color:transparent}
+.welcome-scene .key-field input::selection{background:#8aa6e7;color:#111}
+.welcome-scene .key-visual{position:absolute;inset:2px;display:flex;align-items:center;padding:0 8px;overflow:hidden;white-space:nowrap;pointer-events:none;color:#fff;font:20px "Courier New",Consolas,monospace}
+.welcome-scene #key-render{flex:none}
+.welcome-scene .key-cursor{display:none;position:absolute;top:28px;width:10px;height:2px;background:#fff;animation:intro-cursor-blink 1s steps(1,end) infinite}
+.welcome-scene .key-field:focus-within .key-cursor{display:block}
+.welcome-scene .intro-actions{display:grid;gap:11px;margin-top:clamp(48px,13vh,82px)}
+.welcome-scene .intro-button{display:block;width:100%;min-height:40px;height:auto;margin:0;padding:6px 12px;border:2px solid #080808;border-radius:0;background:#a7a7a7;color:#fff;box-shadow:inset 2px 2px #e5e5e5,inset -2px -2px #555,2px 2px #0000007a;font:700 18px/1 "Courier New",Consolas,monospace;letter-spacing:.015em;text-shadow:2px 2px #333;cursor:pointer;transition:none}
+.welcome-scene .intro-button:hover,.welcome-scene .intro-button:focus-visible{background:#94a7ca;box-shadow:inset 2px 2px #e8eeff,inset -2px -2px #445675,2px 2px #0000007a;outline:2px solid #fff;outline-offset:1px}
+.welcome-scene .intro-button:active{background:#777;box-shadow:inset 2px 2px #444,inset -2px -2px #bbb;transform:translateY(1px)}
+.welcome-scene .intro-button:disabled{opacity:.7;cursor:wait}
+.welcome-scene .intro-states{display:flex;align-items:center;justify-content:center;width:100%;min-height:calc(100svh - 180px);position:relative;z-index:2}
+.welcome-scene .intro-state{width:min(430px,100%);text-align:center}
+.welcome-scene .intro-status{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px}
+.welcome-scene .intro-state p{max-width:100%;margin:0;font:16px/1.5 "Courier New",Consolas,monospace;color:#fff;text-shadow:2px 2px #202020}
+.welcome-scene .intro-status .intro-button{width:min(100%,266px);min-height:28px;padding:3px 8px;font-size:15px}
+.welcome-scene .intro-failure{gap:20px}
+.welcome-scene .intro-failure .intro-button{margin-top:2px}
+.welcome-scene .intro-loading-content{width:min(100%,266px);display:flex;flex-direction:column;align-items:center}
+.welcome-scene .intro-load-track{width:100%;height:4px;margin-top:5px;background:#080808;box-shadow:0 1px #ffffff33}
+.welcome-scene .intro-load-progress{width:0;height:2px;background:#40df39;box-shadow:0 0 3px #51ed44}
+.welcome-scene .world-build{display:block;width:104px;height:104px;margin-top:12px;image-rendering:pixelated}
+.welcome-scene .intro-menu{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16vh}
+.welcome-scene .intro-menu-heading{transform:rotate(-2deg);text-shadow:3px 3px #242424,5px 5px #111}
+.welcome-scene .intro-menu-kicker{margin:0;font-size:42px;font-weight:900;letter-spacing:.11em}
+.welcome-scene .intro-menu-heading h2{margin:4px 0 0;color:#f9df71;font-size:30px;letter-spacing:.06em}
+.welcome-scene:not([data-intro-state=connect]) .world-caption{display:none}
+@keyframes intro-cursor-blink{50%{opacity:0}}
+@media(max-width:480px){
+ .welcome-scene .intro-menu-heading h2 .mc-glyphs{max-width:100%;height:auto}
+}
+@media(max-height:490px){.welcome-scene .intro-actions{margin-top:28px}}
+@media(prefers-reduced-motion:reduce){.welcome-scene .key-cursor{animation:none}}
+html.motion-off .welcome-scene .key-cursor{animation:none}

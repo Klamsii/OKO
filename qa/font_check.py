@@ -1,7 +1,7 @@
 from pathlib import Path
 import struct
 
-data=(Path(__file__).resolve().parents[1]/'web/assets/fonts/PressStart2P-Regular.ttf').read_bytes()
+data=(Path(__file__).resolve().parents[1]/'web/assets/fonts/Monocraft-Regular.ttf').read_bytes()
 u16=lambda offset:struct.unpack_from('>H',data,offset)[0]
 tables={}
 for i in range(u16(4)):

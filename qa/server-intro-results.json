@@ -1,0 +1,336 @@
+{
+  "browser": "Google Chrome",
+  "isolatedApiFixtures": true,
+  "checks": [
+    {
+      "name": "layout-1366",
+      "passed": true,
+      "details": {
+        "viewport": [
+          1366,
+          900
+        ],
+        "connect": {
+          "viewport": 1366,
+          "documentWidth": 1366,
+          "input": {
+            "x": 468,
+            "y": 598.5,
+            "width": 430,
+            "height": 42,
+            "right": 898,
+            "bottom": 640.5
+          },
+          "button": {
+            "x": 468,
+            "y": 722.5,
+            "width": 430,
+            "height": 40,
+            "right": 898,
+            "bottom": 762.5
+          },
+          "inputBackground": "rgb(8, 8, 8)",
+          "inputColor": "rgba(0, 0, 0, 0)",
+          "inputHeight": "42px",
+          "inputBorder": "2px",
+          "inputBorderColor": "rgb(255, 255, 255)",
+          "buttonBackground": "rgb(167, 167, 167)",
+          "buttonBorder": "2px",
+          "visualColor": "rgb(255, 255, 255)",
+          "overlayPointerEvents": "none",
+          "renderedLabel": true,
+          "clipping": []
+        },
+        "failureClipping": [],
+        "menuClipping": [],
+        "glyphResources": [
+          "/_ui/f76d6d73548fa244/assets/intro-font/accented.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/ascii.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/glyphs.json",
+          "/_ui/f76d6d73548fa244/assets/intro-font/nonlatin_european.png"
+        ],
+        "worldResources": [
+          "cherry-grove.png",
+          "end.png",
+          "nether.png"
+        ]
+      }
+    },
+    {
+      "name": "layout-1920",
+      "passed": true,
+      "details": {
+        "viewport": [
+          1920,
+          1080
+        ],
+        "connect": {
+          "viewport": 1920,
+          "documentWidth": 1920,
+          "input": {
+            "x": 745,
+            "y": 696.5,
+            "width": 430,
+            "height": 42,
+            "right": 1175,
+            "bottom": 738.5
+          },
+          "button": {
+            "x": 745,
+            "y": 820.5,
+            "width": 430,
+            "height": 40,
+            "right": 1175,
+            "bottom": 860.5
+          },
+          "inputBackground": "rgb(8, 8, 8)",
+          "inputColor": "rgba(0, 0, 0, 0)",
+          "inputHeight": "42px",
+          "inputBorder": "2px",
+          "inputBorderColor": "rgb(255, 255, 255)",
+          "buttonBackground": "rgb(167, 167, 167)",
+          "buttonBorder": "2px",
+          "visualColor": "rgb(255, 255, 255)",
+          "overlayPointerEvents": "none",
+          "renderedLabel": true,
+          "clipping": []
+        },
+        "failureClipping": [],
+        "menuClipping": [],
+        "glyphResources": [
+          "/_ui/f76d6d73548fa244/assets/intro-font/accented.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/ascii.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/glyphs.json",
+          "/_ui/f76d6d73548fa244/assets/intro-font/nonlatin_european.png"
+        ],
+        "worldResources": [
+          "cherry-grove.png",
+          "end.png",
+          "nether.png"
+        ]
+      }
+    },
+    {
+      "name": "layout-390",
+      "passed": true,
+      "details": {
+        "viewport": [
+          390,
+          844
+        ],
+        "connect": {
+          "viewport": 390,
+          "documentWidth": 390,
+          "input": {
+            "x": 18,
+            "y": 528,
+            "width": 354,
+            "height": 42,
+            "right": 372,
+            "bottom": 570
+          },
+          "button": {
+            "x": 18,
+            "y": 652,
+            "width": 354,
+            "height": 40,
+            "right": 372,
+            "bottom": 692
+          },
+          "inputBackground": "rgb(8, 8, 8)",
+          "inputColor": "rgba(0, 0, 0, 0)",
+          "inputHeight": "42px",
+          "inputBorder": "2px",
+          "inputBorderColor": "rgb(255, 255, 255)",
+          "buttonBackground": "rgb(167, 167, 167)",
+          "buttonBorder": "2px",
+          "visualColor": "rgb(255, 255, 255)",
+          "overlayPointerEvents": "none",
+          "renderedLabel": true,
+          "clipping": []
+        },
+        "failureClipping": [],
+        "menuClipping": [],
+        "glyphResources": [
+          "/_ui/f76d6d73548fa244/assets/intro-font/accented.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/ascii.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/glyphs.json",
+          "/_ui/f76d6d73548fa244/assets/intro-font/nonlatin_european.png"
+        ],
+        "worldResources": [
+          "cherry-grove.png",
+          "end.png",
+          "nether.png"
+        ]
+      }
+    },
+    {
+      "name": "layout-320",
+      "passed": true,
+      "details": {
+        "viewport": [
+          320,
+          850
+        ],
+        "connect": {
+          "viewport": 320,
+          "documentWidth": 320,
+          "input": {
+            "x": 18,
+            "y": 528,
+            "width": 284,
+            "height": 42,
+            "right": 302,
+            "bottom": 570
+          },
+          "button": {
+            "x": 18,
+            "y": 652,
+            "width": 284,
+            "height": 40,
+            "right": 302,
+            "bottom": 692
+          },
+          "inputBackground": "rgb(8, 8, 8)",
+          "inputColor": "rgba(0, 0, 0, 0)",
+          "inputHeight": "42px",
+          "inputBorder": "2px",
+          "inputBorderColor": "rgb(255, 255, 255)",
+          "buttonBackground": "rgb(167, 167, 167)",
+          "buttonBorder": "2px",
+          "visualColor": "rgb(255, 255, 255)",
+          "overlayPointerEvents": "none",
+          "renderedLabel": true,
+          "clipping": []
+        },
+        "failureClipping": [],
+        "menuClipping": [],
+        "glyphResources": [
+          "/_ui/f76d6d73548fa244/assets/intro-font/accented.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/ascii.png",
+          "/_ui/f76d6d73548fa244/assets/intro-font/glyphs.json",
+          "/_ui/f76d6d73548fa244/assets/intro-font/nonlatin_european.png"
+        ],
+        "worldResources": [
+          "cherry-grove.png",
+          "end.png",
+          "nether.png"
+        ]
+      }
+    },
+    {
+      "name": "validation-and-retry",
+      "passed": true,
+      "details": {
+        "reasons": {
+          "empty": "X-API ключ не указан",
+          "401": "Неверный X-API ключ",
+          "500": "Сервис временно недоступен",
+          "offline": "Локальный сервер не отвечает"
+        },
+        "retrySuccess": true,
+        "postCount": 4,
+        "keyCleared": true
+      }
+    },
+    {
+      "name": "cancel-checking-cancel",
+      "passed": true,
+      "details": {
+        "phase": "checking",
+        "action": "cancel",
+        "lateResponseDidNotEnter": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "cancel-checking-escape",
+      "passed": true,
+      "details": {
+        "phase": "checking",
+        "action": "escape",
+        "lateResponseDidNotEnter": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "cancel-checking-brand",
+      "passed": true,
+      "details": {
+        "phase": "checking",
+        "action": "brand",
+        "lateResponseDidNotEnter": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "cancel-loading-brand",
+      "passed": true,
+      "details": {
+        "phase": "loading",
+        "action": "brand",
+        "lateResponseDidNotEnter": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "delayed-boot-401-during-checking",
+      "passed": true,
+      "details": {
+        "bootStatus": 401,
+        "bootReleasedDuring": "checking",
+        "manualSessionPreserved": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "delayed-boot-401-after-login",
+      "passed": true,
+      "details": {
+        "bootStatus": 401,
+        "bootReleasedDuring": "workspace",
+        "manualSessionPreserved": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "delayed-boot-200-after-login",
+      "passed": true,
+      "details": {
+        "bootStatus": 200,
+        "bootReleasedDuring": "workspace",
+        "manualSessionPreserved": true,
+        "postCount": 1
+      }
+    },
+    {
+      "name": "full-timing-and-navigation",
+      "passed": true,
+      "details": {
+        "events": [
+          {
+            "state": "checking",
+            "time": 457.30000001192093
+          },
+          {
+            "state": "loading",
+            "time": 1418.800000011921
+          },
+          {
+            "state": "connect",
+            "time": 4071.5
+          }
+        ],
+        "checkingMs": 962,
+        "generationMs": 2653,
+        "postCount": 1,
+        "netherEndBack": true,
+        "worldCanvas": [
+          104,
+          104
+        ]
+      }
+    }
+  ],
+  "failures": []
+}

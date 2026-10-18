@@ -8,9 +8,11 @@ import {ArchiveView,analysisLabels,assetAvailable} from './archive.js';
 import {Credits} from './credits.js';
 import {$,h,finite,terminal} from './dom.js';
 import {analysisScope} from './analysis-scope.js';
+import {ServerIntro} from './intro-flow.js';
 
-const state={authenticated:false,apiKey:'',caps:{},file:null,displayRunId:null,generation:0,submitting:false,attempt:null,world:'overworld'};
+const state={authenticated:false,caps:{},file:null,displayRunId:null,generation:0,submitting:false,attempt:null,world:'overworld'};
 const runs=new Map(),reviews=new Map();let navigationRevision=0,reviewTimer=null,restoring=false;
+let loginAttempted=false;
 try{sessionStorage.removeItem('api_key');}catch{/* A disabled store does not prevent analysis. */}
 for(const el of document.querySelectorAll('[data-project-name]'))el.textContent=CONFIG.projectName;
 document.title=`${CONFIG.projectName} — проверка кассового видео`;
@@ -36,6 +38,14 @@ const worlds=new Worlds({audio,onChange:world=>{state.world=world;if(world!=='ne
 const credits=new Credits({audio,onFinish:()=>navigate('overworld').catch(showError)});
 const report=new ReportView({player,request,onSeek:id=>markEvent(id),onSave:()=>retrySave().catch(showError),onReview:value=>updateReview(value)});
 const archive=new ArchiveView({request,onOpen:id=>openRun(id),onReanalyze:id=>reanalyze(id),onDelete:id=>deletedRun(id),onAnalyze:()=>navigate('nether')});
+const intro=new ServerIntro({
+  authenticate:(key,signal)=>{loginAttempted=true;return request('/ui/v1/session',{method:'POST',body:{api_key:key},signal});},
+  ready:()=>worlds.ready,
+  enter:async(info)=>{
+    setAuthenticated(true);applyCapabilities(info);
+    await afterLogin(state.authTarget||'nether',{instant:true});state.authTarget=null;
+  },
+});
 const progress=h('progress',{id:'run-progress',max:1,value:0,'aria-label':'Ход анализа',hidden:true});$('analysis-status').append(progress);
 const reconnect=h('button',{type:'button',class:'game-button',hidden:true,onclick:()=>resumeConnections()},'Восстановить связь');$('analysis-error').after(reconnect);
 
@@ -87,13 +97,14 @@ const route=()=>{
   const hash=location.hash.slice(1),parts=hash.split('/');
   return {world:parts[0]==='history'?'end':parts[0]==='credits'?'credits':parts[0]==='analysis'?'nether':'overworld',runId:parts[0]==='analysis'&&parts[1]?decodeURIComponent(parts[1]):null};
 };
-async function navigate(world,push=true){
+async function navigate(world,push=true,{instant=false}={}){
+  if(intro.active&&!intro.entering)intro.cancel({clear:true,focus:false});
   if(['nether','end'].includes(world)&&!state.authenticated){state.authTarget=world;world='overworld';}
   const revision=++navigationRevision;if(world!=='credits')credits.stop({notify:false});
   await worlds.ready;if(revision!==navigationRevision)return;
   const hash=world==='nether'?`#analysis${state.displayRunId?'/'+encodeURIComponent(state.displayRunId):''}`:world==='end'?'#history':world==='credits'?'#credits':'#welcome';
-  if(push&&location.hash!==hash)history.pushState({world,runId:state.displayRunId},'',hash);
-  await worlds.go(world);if(revision!==navigationRevision)return;state.world=world;
+  if(location.hash!==hash)history[push?'pushState':'replaceState']({world,runId:state.displayRunId},'',hash);
+  if(instant)worlds.setWorld(world);else await worlds.go(world);if(revision!==navigationRevision)return;state.world=world;
   for(const [id,name]of [['nav-home','overworld'],['nav-analysis','nether'],['nav-history','end']])$(id)?.setAttribute('aria-current',name===world?'page':'false');
   if(world==='end'){await archive.load();$('archive-search').focus({preventScroll:true});}
   else if(world==='nether')$('upload-button').focus({preventScroll:true});else if(world==='overworld')$('api-key').focus({preventScroll:true});
@@ -103,21 +114,6 @@ for(const [id,world]of [['nav-home','overworld'],['nav-analysis','nether'],['nav
 $('back-button').addEventListener('click',()=>navigate(state.world==='end'?'nether':'overworld').catch(showError));
 $('brand-link').addEventListener('click',event=>{event.preventDefault();navigate('overworld').catch(showError);});
 $('end-exit-button')?.addEventListener('click',async()=>{try{await navigate('credits');await credits.start();}catch(error){showError(error);}});
-$('key-visibility')?.addEventListener('click',()=>{const visible=$('api-key').type==='password';$('api-key').type=visible?'text':'password';$('key-visibility').setAttribute('aria-label',visible?'Скрыть ключ':'Показать ключ');});
-$('welcome-cancel').addEventListener('click',()=>{
-  if($('start-button').disabled)return;
-  $('api-key').value='';$('api-key').type='password';$('welcome-error').hidden=true;$('welcome-error').textContent='';state.authTarget='nether';$('api-key').focus({preventScroll:true});
-});
-const originalStart=$('start-button').innerHTML;
-$('welcome-form').addEventListener('submit',async event=>{
-  event.preventDefault();if($('start-button').disabled)return;
-  const key=$('api-key').value.trim();if(!key&&state.authenticated){await navigate('nether');return;}if(!key)return;$('welcome-error').hidden=true;$('start-button').disabled=true;$('welcome-cancel').disabled=true;$('start-button').textContent='ПРОВЕРКА ДОСТУПА…';
-  try{
-    const info=await request('/ui/v1/session',{method:'POST',body:{api_key:key}});state.apiKey=key;setAuthenticated(true);applyCapabilities(info);$('api-key').value='';
-    await afterLogin(state.authTarget||'nether');state.authTarget=null;
-  }catch(error){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}
-  finally{$('start-button').innerHTML=originalStart;$('start-button').disabled=false;$('welcome-cancel').disabled=false;}
-});
 
 function selectFile(file){
   if(!file||state.submitting)return;const ext=(file.name.split('.').pop()||'').toLowerCase();
@@ -262,19 +258,19 @@ async function restoreActiveRuns(){
     while(offset<total){const page=await request(`/ui/v1/runs?status=${status}&limit=100&offset=${offset}`);total=finite(page.total);for(const item of page.items||[]){const id=String(item.job_id||item.id),ctx=ensureContext(id,item);poll(ctx);}offset+=100;}
   }
 }
-async function afterLogin(target){
+async function afterLogin(target,options={}){
   if(restoring)return;restoring=true;
   try{
     const next=route(),id=next.runId||storedRun();
     restoreActiveRuns().catch(error=>showError(`Не удалось восстановить фоновые задания: ${error.message}`));
     if(id){try{await openRun(id,{navigateTo:false});}catch(error){rememberRun(null);showError(error);}}
-    await navigate(target||next.world||'overworld',false);
+    await navigate(target||next.world||'overworld',false,options);
   }finally{restoring=false;updateControls();}
 }
 async function boot(){
   chat.clear();updateControls();$('typed-message').textContent=CONFIG.greeting;
   const initial=route();
-  try{const info=await request('/ui/v1/session');setAuthenticated(true);applyCapabilities(info);await afterLogin(initial.world==='credits'?'end':initial.world);}
-  catch(error){if(error.status!==401){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}state.authTarget=initial.world==='overworld'?'nether':initial.world;await navigate('overworld',false);}
+  try{const info=await request('/ui/v1/session');if(loginAttempted||intro.screen!=='connect')return;setAuthenticated(true);applyCapabilities(info);await afterLogin(initial.world==='credits'?'end':initial.world);}
+  catch(error){if(loginAttempted||intro.screen!=='connect')return;if(error.status!==401){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}state.authTarget=initial.world==='overworld'?'nether':initial.world;await navigate('overworld',false);}
 }
 boot().catch(error=>{showError(error);$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;});

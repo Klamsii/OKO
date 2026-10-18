@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  projectName: 'OKA', greeting: '> Добро пожаловать на пост наблюдения.',
+  projectName: 'OKO', greeting: '> Добро пожаловать на пост наблюдения.',
   pollIntervalMs: 1500, jobTimeoutMs: 300000,
   audio: {
     musicVolume: .10, musicWhileVideoVolume: .03, musicDuckMultiplier: .30, portalVolume: .16, uiVolume: .08,

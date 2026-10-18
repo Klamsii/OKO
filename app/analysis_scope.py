@@ -10,7 +10,7 @@ def describe_analysis(detectors, *, command_configured=False, provenance="config
     names = list(dict.fromkeys(detectors or ()))
     if names == ["datathon"]:
         return {
-            "mode": "datathon", "label": "OKA · Qwen3-VL · анализ кассовых операций",
+            "mode": "datathon", "label": "OKO · Qwen3-VL · анализ кассовых операций",
             "method": "self_hosted_qwen3_vl", "detectors": names,
             "checked_rule_ids": [], "rule_coverage_known": False, "full_audit_available": False,
             "requires_llm": True, "provenance": provenance,

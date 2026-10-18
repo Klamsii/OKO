@@ -7,14 +7,14 @@
       "path": "web/assets/fonts/OFL.txt",
       "source": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
       "version": "Google Fonts main retrieved 2026-10-18",
-      "usage": "SIL Open Font License 1.1; see web/assets/fonts/OFL.txt",
+      "usage": "Preserved unused Press Start 2P alternative; SIL Open Font License 1.1; see web/assets/fonts/OFL.txt",
       "sha256": "705960c3281a5765ecc0b59bd4ed7ca59eed165748076bc2fc3e8fdbfeb944b0"
     },
     {
       "path": "web/assets/fonts/PressStart2P-Regular.ttf",
       "source": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
       "version": "Google Fonts main retrieved 2026-10-18",
-      "usage": "SIL Open Font License 1.1; see web/assets/fonts/OFL.txt",
+      "usage": "Preserved unused Press Start 2P alternative; SIL Open Font License 1.1; see web/assets/fonts/OFL.txt",
       "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d"
     },
     {
@@ -91,22 +91,92 @@
       "path": "web/assets/textures/oak-sign.svg",
       "source": "Original project-authored SVG",
       "version": "2026-10-18",
-      "usage": "Active simple oak plank texture for the hanging sign; no game asset copied",
+      "usage": "Previous original oak plank texture, retained as an unused alternative; no game asset copied",
       "sha256": "7884b113957127387f36e8349cbc1728f34ca15e55d66038dfc19461f8c1bfc2"
     },
     {
       "path": "web/assets/textures/sign-chain.svg",
       "source": "Original project-authored SVG",
       "version": "2026-10-18",
-      "usage": "Original pixel chain links for the hanging sign; no game asset copied",
+      "usage": "Previous original pixel chain texture, retained as an unused alternative; no game asset copied",
       "sha256": "bacf8fdd96a9443fcb8444c71f778f0f6774eb6f0ec94789de02d07558deb7e0"
     },
     {
       "path": "web/assets/branding/oko-sign-lettering.svg",
       "source": "Original project-authored SVG variant",
       "version": "2026-10-18",
-      "usage": "Active flat painted uppercase OKO lettering with green camera eyes",
+      "usage": "Previous flat painted uppercase OKO lettering with green camera eyes; retained as an unused alternative",
       "sha256": "6896050793cde127bd6ada6f0ec2422308215791a7274352651f4d21dde20d04"
+    },
+    {
+      "path": "web/assets/fonts/Monocraft-Regular.ttf",
+      "source": "https://github.com/IdreesInc/Monocraft/releases/tag/v4.2.1",
+      "version": "v4.2.1",
+      "usage": "Active primary pixel UI font under the Pixel CSS family alias; unmodified Monocraft-ttf/Monocraft.ttf from the official release archive; SIL OFL 1.1",
+      "sha256": "c3906e842d1b7e99947abcc5ae3c8b409abf8cefd1006cbba1890f1096e132f2"
+    },
+    {
+      "path": "web/assets/fonts/Monocraft-OFL.txt",
+      "source": "https://github.com/IdreesInc/Monocraft/blob/v4.2.1/LICENSE",
+      "version": "v4.2.1",
+      "usage": "SIL Open Font License 1.1 accompanying Monocraft",
+      "sha256": "f69c147003e052dbc9d96c40a9f73647e72766cfda95a597b94ed827fe25acb1"
+    },
+    {
+      "path": "web/assets/fonts/Monocraft-SOURCE.txt",
+      "source": "Local provenance record for the official IdreesInc/Monocraft release",
+      "version": "2026-10-18",
+      "usage": "Exact download and archive member; locally verified Russian glyph coverage",
+      "sha256": "b642bb3c7331c0f6052926d1920ce2a3187aa1f52e5a26a4975e4a9728f192f0"
+    },
+    {
+      "path": "web/assets/branding/oko-ender-wordmark.svg",
+      "source": "Original project-authored SVG; user supplied Ender-eye styling reference",
+      "version": "2026-10-18",
+      "usage": "Uppercase OKO wordmark with two teal Ender-inspired eyes and quiet pale rims; no game asset or external font embedded",
+      "sha256": "5b8538caf13beb001100208d4d396b992578c1270ef78eee24dea7b972f181c0"
+    },
+    {
+      "path": "web/assets/textures/oak-hanging-sign.svg",
+      "source": "Original project-authored SVG; user supplied oak sign styling reference",
+      "version": "2026-10-18",
+      "usage": "Oak plank hanging-sign surface with no lower post; no game asset copied",
+      "sha256": "9a07cd0bcccd250e9b096dd86819b6814e82b4827a8ec6cdc806722bd8ac467e"
+    },
+    {
+      "path": "web/assets/textures/hanging-chain.svg",
+      "source": "Original project-authored SVG",
+      "version": "2026-10-18",
+      "usage": "Complete repeating metal chain links for the hanging sign; no game asset copied",
+      "sha256": "a1fcdd71052ba1f174213dfc767dde9cc50f44737fac11a75161ecc7cfcbab32"
+    },
+    {
+      "path": "web/assets/intro-font/ascii.png",
+      "source": "https://github.com/AmirBro0/2/blob/8983c777fb136c50c9c081d949b2e4f9b113c9da/app/static/minecraft-local/font/ascii.png",
+      "version": "8983c777fb136c50c9c081d949b2e4f9b113c9da",
+      "usage": "Intro bitmap font source asset; copied byte-identically from the user-specified repository",
+      "sha256": "e8646f1ed1f4bfd597d262cca3d8fac88ceaaa62807bbd5e607b2e3fe41c928a"
+    },
+    {
+      "path": "web/assets/intro-font/accented.png",
+      "source": "https://github.com/AmirBro0/2/blob/8983c777fb136c50c9c081d949b2e4f9b113c9da/app/static/minecraft-local/font/accented.png",
+      "version": "8983c777fb136c50c9c081d949b2e4f9b113c9da",
+      "usage": "Intro bitmap font source asset; copied byte-identically from the user-specified repository",
+      "sha256": "b9088c6e0496eba5df8733848a9d034381e5a656da08a6f70b9a77d178a0d0ba"
+    },
+    {
+      "path": "web/assets/intro-font/nonlatin_european.png",
+      "source": "https://github.com/AmirBro0/2/blob/8983c777fb136c50c9c081d949b2e4f9b113c9da/app/static/minecraft-local/font/nonlatin_european.png",
+      "version": "8983c777fb136c50c9c081d949b2e4f9b113c9da",
+      "usage": "Intro bitmap font source asset; copied byte-identically from the user-specified repository",
+      "sha256": "21e91bd394e0790da5db58c99d6f89712977930d6f746fb298824f73c47e7027"
+    },
+    {
+      "path": "web/assets/intro-font/glyphs.json",
+      "source": "https://github.com/AmirBro0/2/blob/8983c777fb136c50c9c081d949b2e4f9b113c9da/app/static/minecraft-local/font/glyphs.json",
+      "version": "8983c777fb136c50c9c081d949b2e4f9b113c9da",
+      "usage": "Intro bitmap font source asset; copied byte-identically from the user-specified repository",
+      "sha256": "06ed4bf64e554c0aa0c6b80101b62d82c13bfa99f694619e120db5ab801f516a"
     }
   ],
   "inline_assets": [
@@ -120,7 +190,7 @@
     },
     {
       "path": "web/worlds.js",
-      "purpose": "Local Overworld, Nether and End image renderer with one-time averaging to 480x270 and pixelated scaling, masked quiet particle layer and portal transition canvas",
+      "purpose": "Local frozen sunset cherry-grove Overworld renderer at 640x360; Nether and End averaging to 480x270; separate quiet particle layer and portal transition canvas",
       "source": "Authored for FORTE AUDIT integration",
       "version": "2026-10-18"
     },
@@ -192,7 +262,7 @@
   },
   "current_backgrounds": {
     "paths": [
-      "web/assets/worlds/overworld.png",
+      "web/assets/worlds/cherry-grove.png",
       "web/assets/worlds/nether.png",
       "web/assets/worlds/end.png"
     ],
@@ -202,18 +272,24 @@
       480,
       270
     ],
-    "resampling": "One-time image averaging followed by CSS pixelated scaling",
-    "original_overworld_and_nether_restored": true,
+    "render_resolution_by_world": {
+      "overworld": [640, 360],
+      "nether": [480, 270],
+      "end": [480, 270]
+    },
+    "resampling": "Existing Overworld pixel grid at 640x360; Nether and End one-time image averaging at 480x270 followed by CSS pixelated scaling",
+    "original_overworld_and_nether_restored": false,
+    "active_overworld": "Existing sunset cherry-grove.png preserved at the user's request; image and animation behavior unchanged",
     "animated_particles_separate": true,
     "original_overworld_preserved": true,
     "soft_overworld_active": false,
     "display_adjustments": {
       "method": "CSS filters and neutral overlays on landscape layers only; UI unaffected",
       "overworld": {
-        "saturation": 0.92,
-        "saturation_reduction_percent": 8,
-        "brightness": 0.97,
-        "overlay": "subtle neutral"
+        "saturation": 0.86,
+        "saturation_reduction_percent": 14,
+        "brightness": 0.8,
+        "overlay": "subtle dark neutral"
       },
       "nether": {
         "saturation": 0.78,

@@ -45,7 +45,7 @@ async def lifespan(_: FastAPI):
         service.shutdown()
 
 
-app = FastAPI(title="OKA", version="1.1.0", lifespan=lifespan)
+app = FastAPI(title="OKO", version="1.1.0", lifespan=lifespan)
 app.mount("/static", FrontendStaticFiles(directory=web_dir), name="static")
 # A release-specific directory keeps relative JS imports and CSS URLs in the
 # same release too. Querying only app.js does not refresh its cached imports.
@@ -300,7 +300,7 @@ async def _accept(file, request, origin):
         with destination.open("rb") as stream:
             if not _header_looks_video(stream.read(12), extension):
                 raise HTTPException(415, "Содержимое файла не похоже на видео выбранного формата")
-        snapshot = {"pipeline": "oka", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
+        snapshot = {"pipeline": "oko", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
                     "analysis_scope": capabilities_body()["analysis_scope"],
                     "threshold": settings.threshold, "review_threshold": settings.review_threshold,
                     "sample_fps": settings.sample_fps, "version": "1.0.0", "deadline_seconds": settings.deadline_seconds,
@@ -399,7 +399,7 @@ def reanalyze(job_id: str, request: Request):
         destination = settings.data_dir / "uploads" / (uuid.uuid4().hex + path.suffix)
         shutil.copyfile(path, destination)
     try:
-        snapshot = {"pipeline": "oka", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
+        snapshot = {"pipeline": "oko", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
                     "analysis_scope": capabilities_body()["analysis_scope"],
                     "threshold": settings.threshold, "review_threshold": settings.review_threshold,
                     "sample_fps": settings.sample_fps, "version": "1.0.0", "deadline_seconds": settings.deadline_seconds,

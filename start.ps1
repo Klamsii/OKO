@@ -1,4 +1,4 @@
-param([int]$Port = 8000, [switch]$Docker)
+﻿param([int]$Port = 8000, [switch]$Docker)
 $ErrorActionPreference = 'Stop'
 $taskProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 & (Join-Path $taskProjectRoot 'setup.ps1')
@@ -24,7 +24,7 @@ try {
             if ($LASTEXITCODE -ne 0) { throw 'Не удалось установить зависимости.' }
             Set-Content -LiteralPath $taskStamp -Value $taskRequirementsHash
         }
-        Write-Host "OKA: http://127.0.0.1:$Port/ (подключение: .\connect-server.ps1; ключ находится в .env)"
+        Write-Host "OKO: http://127.0.0.1:$Port/ (подключение: .\connect-server.ps1; ключ находится в .env)"
         & $taskPython -m app --port $Port
     }
 } finally { Pop-Location }

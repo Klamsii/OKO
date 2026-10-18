@@ -1,14 +1,17 @@
-/* A simple oak hanging sign against the cherry grove. */
+/* A textured oak sign, suspended from a complete pair of metal chains. */
 .welcome-scene{padding:28px 30px 82px}
 .welcome-scene .intro-composition{width:min(940px,100%)}
 .welcome-scene .scene-eyebrow{font-size:11px;color:#f0e6ec;text-shadow:2px 2px #352a3b}
 .welcome-scene .scene-eyebrow>span{background:#d8c8d56e}
-.welcome-scene .sign-rig{width:min(840px,100%);height:288px}
-.welcome-scene .wood-beam,.welcome-scene .sign-rivet,.welcome-scene .wood-sign:after{display:none}
-.welcome-scene .sign-chain{top:0;width:12px;height:48px;border:0;box-shadow:none;background:url('./assets/textures/sign-chain.svg') center top/12px 16px repeat-y}
-.welcome-scene .sign-chain.left{left:18%}.welcome-scene .sign-chain.right{right:18%}
-.welcome-scene .wood-sign{top:44px;padding:20px 28px 21px;background:#c49a64 url('./assets/textures/oak-sign.svg') center/100% 100%;border:3px solid #745334;box-shadow:inset 1px 1px #e3bf88,inset -1px -1px #a77c4b,3px 4px #32251fd9;animation:none;color:#3c302a}
-.welcome-scene .wood-sign h1{width:min(440px,82%);margin:12px auto 8px;line-height:1;text-shadow:none;letter-spacing:0}
+.welcome-scene .sign-rig{width:min(800px,100%);height:auto;padding-top:64px}
+.welcome-scene .sign-rivet,.welcome-scene .wood-sign:after{display:none}
+.welcome-scene .wood-beam{display:block;top:0;left:18%;width:64%;height:10px;border:2px solid #37372e;background:#70705e;box-shadow:inset 0 2px #aaa68a,0 2px #2e302b;z-index:2}
+.welcome-scene .wood-beam:before,.welcome-scene .wood-beam:after{display:none}
+.welcome-scene .sign-chain{top:6px;width:18px;height:72px;border:0;box-shadow:none;background:url('./assets/textures/hanging-chain.svg') center top/18px 24px repeat-y;z-index:3;image-rendering:pixelated}
+.welcome-scene .sign-chain.left{left:calc(18% - 9px)}.welcome-scene .sign-chain.right{right:calc(18% - 9px)}
+.welcome-scene .sign-chain:after{content:"";position:absolute;bottom:-1px;left:-5px;width:28px;height:10px;border:2px solid #484333;background:#8f8f72;box-shadow:inset 2px 2px #c2ba95,0 2px #5c533d}
+.welcome-scene .wood-sign{position:relative;top:auto;left:auto;right:auto;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 32px 24px;background:#b39a66 url('./assets/textures/oak-hanging-sign.svg') center/100% 100%;border:3px solid #78603e;box-shadow:inset 1px 2px #d6ba82,inset -1px -2px #91764b,0 4px #665038,4px 7px #24201f55;animation:none;color:#3c302a;image-rendering:pixelated}
+.welcome-scene .wood-sign h1{width:min(456px,82%);margin:10px auto;line-height:1;text-shadow:none;letter-spacing:0}
 .oko-wordmark{display:block;width:100%;height:auto;image-rendering:pixelated}
 .welcome-scene .sign-overline,.welcome-scene .sign-subtitle{font-size:10px;letter-spacing:2px;color:#533d2c;text-shadow:none}
 .welcome-scene .welcome-message{font-size:12px;line-height:1.9;min-height:34px;margin:18px 0 22px;color:#f3e9ed;text-shadow:2px 2px #302635}
@@ -30,16 +33,18 @@ html[data-world=overworld] .nav-brand{font-size:13px}
 html[data-world=overworld] .nav-location{font-size:9px}
 html[data-world=overworld] .nav-world{font-size:8px}
 @media(min-width:1600px){
-  .welcome-scene .sign-rig{width:880px;max-width:100%;height:304px}
-  .welcome-scene .wood-sign{padding-top:24px;padding-bottom:25px}
+  .welcome-scene .sign-rig{width:820px;max-width:100%;height:auto}
+  .welcome-scene .wood-sign{min-height:296px;padding-top:26px;padding-bottom:28px}
   .welcome-scene .wood-sign h1{width:480px;max-width:82%}
 }
 @media(max-width:740px){
   .welcome-scene{padding:32px 18px 80px}
   .welcome-scene .scene-eyebrow{font-size:8px;margin-bottom:18px}
-  .welcome-scene .sign-rig{width:100%;height:238px}
-  .welcome-scene .wood-sign{padding:22px 12px 19px}
-  .welcome-scene .wood-sign h1{width:min(320px,90%);margin:12px auto 8px}
+  .welcome-scene .sign-rig{width:100%;height:auto;padding-top:48px}
+  .welcome-scene .wood-sign{min-height:204px;padding:22px 12px 20px}
+  .welcome-scene .wood-sign h1{width:min(320px,90%);margin:10px auto}
+  .welcome-scene .sign-chain{height:56px}
+  .welcome-scene .sign-chain:after{left:-3px;width:24px;height:8px}
   .welcome-scene .sign-overline,.welcome-scene .sign-subtitle{font-size:8px;letter-spacing:1.2px}
   .welcome-scene .welcome-message{font-size:10px;min-height:40px;margin:18px 0 20px}
   .welcome-scene .key-form label{font-size:10px}

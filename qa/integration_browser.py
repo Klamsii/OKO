@@ -83,11 +83,17 @@ def main():
         shot("overworld-1366")
         page.locator("#api-key").fill("incorrect-isolated-test-key")
         page.locator("#start-button").click()
-        page.locator("#welcome-error").wait_for(state="visible")
+        page.locator("#failure-screen").wait_for(state="visible")
+        assert page.locator("#failure-reason").inner_text() == "Неверный X-API ключ"
         checks.append("invalid-key-rejected")
+        page.locator("#failure-back").click()
         page.locator("#api-key").fill(args.key)
         page.locator("#start-button").click()
-        page.locator("#workspace-scene").wait_for(state="visible")
+        page.locator("#checking-screen").wait_for(state="visible")
+        page.locator("#loading-screen").wait_for(state="visible")
+        page.locator("#workspace-scene").wait_for(state="visible", timeout=15000)
+        page.locator("#portal-transition").wait_for(state="hidden")
+        assert page.evaluate("location.hash") == "#analysis"
         if page.locator("#motion-toggle").get_attribute("aria-pressed") == "false":
             page.locator("#motion-toggle").click()
         assert ".mp4" in page.locator("#video-file").get_attribute("accept")
@@ -225,11 +231,19 @@ def main():
         page.locator("#welcome-scene").wait_for(state="visible")
         assert sound.get_attribute("aria-pressed") == "false"
         login_requests = len(session_posts)
-        assert not page.locator("#api-key").evaluate("input=>input.required")
+        analysis_requests = len(posts)
+        assert page.locator("#api-key").input_value() == ""
         page.locator("#start-button").click()
-        page.locator("#workspace-scene").wait_for(state="visible")
+        page.locator("#failure-screen").wait_for(state="visible")
+        assert page.locator("#failure-reason").inner_text() == "X-API ключ не указан"
         assert len(session_posts) == login_requests
-        checks.append("active-session-START-after-credits-needs-no-key")
+        page.locator("#failure-back").click()
+        page.locator("#api-key").fill(args.key)
+        page.locator("#start-button").click()
+        page.locator("#workspace-scene").wait_for(state="visible", timeout=15000)
+        assert len(session_posts) == login_requests + 1
+        assert len(posts) == analysis_requests
+        checks.append("explicit-key-relogin-after-credits-without-reanalysis")
         page.emulate_media(reduced_motion="reduce")
         page.set_viewport_size({"width": 390, "height": 844})
         open_history()

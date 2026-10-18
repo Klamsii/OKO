@@ -4,14 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#373142">
-  <title>OKA — проверка кассового видео</title>
-  <link rel="preload" href="/static/assets/fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <title>OKO — проверка кассового видео</title>
+  <link rel="preload" href="/static/assets/fonts/Monocraft-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/static/styles.css">
   <link rel="stylesheet" href="/static/controls-refresh.css">
   <link rel="stylesheet" href="/static/worlds-refresh.css">
   <link rel="stylesheet" href="/static/ui-refresh.css">
   <link rel="stylesheet" href="/static/branding.css">
-  <link rel="stylesheet" href="/static/welcome-form.css">
+  <link rel="stylesheet" href="/static/typography.css">
+  <link rel="stylesheet" href="/static/server-intro.css">
 </head>
 <body>
   <div class="world-backdrop" aria-hidden="true"><canvas id="landscape" width="640" height="360"></canvas><canvas id="atmosphere" width="640" height="360"></canvas></div>
@@ -31,7 +32,7 @@
     <symbol id="i-theme" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 1h10v3h4v3h3v10h-3v4h-4v3H7v-3H3v-4H0V7h3V3h4zm5 4v14h4v-3h3V8h-3V5z"/></symbol>
   </svg>
   <nav class="game-nav" aria-label="Навигация приложения">
-    <div class="nav-left"><button class="game-button icon-button" id="back-button" type="button" aria-label="Вернуться к приветствию" title="Вернуться к приветствию" disabled><svg><use href="#i-back"/></svg></button><a href="#welcome" class="nav-brand" id="brand-link"><span class="brand-gem" aria-hidden="true"></span><span data-project-name>OKA</span></a></div>
+    <div class="nav-left"><button class="game-button icon-button" id="back-button" type="button" aria-label="Вернуться к приветствию" title="Вернуться к приветствию" disabled><svg><use href="#i-back"/></svg></button><a href="#welcome" class="nav-brand" id="brand-link"><span class="brand-gem" aria-hidden="true"></span><span data-project-name>OKO</span></a></div>
     <div class="nav-location"><span class="location-dot"></span><span id="scene-name">Приветствие</span><span class="nav-world" id="world-label">OVERWORLD</span></div>
     
     <div class="nav-actions"><button id="nav-analysis" class="game-button icon-button" type="button" aria-label="Новая проверка видео" title="Новая проверка видео" hidden><svg><use href="#i-spark"/></svg></button><button class="game-button icon-button" id="theme-toggle" type="button" aria-label="Включить светлую тему" title="Тема панелей"><svg><use href="#i-theme"/></svg></button><button class="game-button icon-button motion-button" id="motion-toggle" type="button" aria-label="Отключить декоративное движение" aria-pressed="false" title="Декоративное движение"><svg><use href="#i-spark"/></svg></button><button class="game-button icon-button" id="sound-toggle" type="button" aria-label="Включить звуки сайта" aria-pressed="false" title="Звуки сайта"><svg><use href="#i-muted"/></svg></button><button class="game-button icon-button" id="info-button" type="button" aria-label="О приложении" title="О приложении"><svg><use href="#i-info"/></svg></button><button id="nav-history" class="game-button icon-button end-nav-arrow" type="button" aria-label="Перейти в End — история проверок" title="Перейти в End — история проверок" hidden><svg aria-hidden="true"><use href="#i-forward"/></svg></button></div>
@@ -40,15 +41,39 @@
     <section id="welcome-scene" class="scene welcome-scene" aria-labelledby="project-title">
       <div class="intro-composition" id="intro-composition">
         <div class="scene-eyebrow"><span></span> ВАШ ПОСТ НАБЛЮДЕНИЯ <span></span></div>
-        <div class="sign-rig"><div class="wood-beam"></div><div class="sign-chain left"></div><div class="sign-chain right"></div><div class="wood-sign"><span class="sign-rivet r1"></span><span class="sign-rivet r2"></span><span class="sign-rivet r3"></span><span class="sign-rivet r4"></span><p class="sign-overline">КАССОВАЯ ДИСЦИПЛИНА</p><h1 id="project-title" aria-label="OKA"><img class="oko-wordmark" src="/static/assets/branding/oka-sign-lettering.svg" alt="" aria-hidden="true"><span class="sr-only" data-project-name>OKA</span></h1><span class="sign-subtitle">ВИДЕО ПОД КОНТРОЛЕМ</span></div></div>
+        <div class="sign-rig"><div class="wood-beam"></div><div class="sign-chain left"></div><div class="sign-chain right"></div><div class="wood-sign"><span class="sign-rivet r1"></span><span class="sign-rivet r2"></span><span class="sign-rivet r3"></span><span class="sign-rivet r4"></span><p class="sign-overline">КАССОВАЯ ДИСЦИПЛИНА</p><h1 id="project-title" aria-label="OKO"><img class="oko-wordmark" src="/static/assets/branding/oko-ender-wordmark.svg" alt="" aria-hidden="true"><span class="sr-only" data-project-name>OKO</span></h1><span class="sign-subtitle">ВИДЕО ПОД КОНТРОЛЕМ</span></div></div>
         <p class="welcome-message" aria-label="Добро пожаловать на пост наблюдения"><span id="typed-message">&gt; Добро пожаловать на пост наблюдения.</span><span class="typing-cursor" aria-hidden="true">_</span></p>
-        <form id="welcome-form" class="key-form">
-          <label for="api-key">X-API ключ</label>
-          <div class="key-field"><input id="api-key" type="password" autocomplete="off" required spellcheck="false" aria-describedby="welcome-error"></div>
+        <form id="welcome-form" class="key-form" novalidate>
+          <label for="api-key" data-intro-text>X-API ключ</label>
+          <div class="key-field"><input id="api-key" name="key" type="password" autocomplete="off" autocapitalize="off" maxlength="256" spellcheck="false" aria-describedby="welcome-error"><div id="key-visual" class="key-visual" aria-hidden="true"><span id="key-render" data-intro-scale="2"></span><span id="key-cursor" class="key-cursor"></span></div></div>
           <p id="welcome-error" class="form-error" role="alert" hidden></p>
-          <button id="start-button" class="game-button start-button welcome-menu-button" type="submit">Подключиться</button>
-          <button id="welcome-cancel" class="game-button welcome-menu-button" type="button">Отмена</button>
+          <div class="intro-actions">
+            <button id="start-button" class="intro-button" type="submit" data-intro-text>Подключиться</button>
+            <button id="welcome-cancel" class="intro-button" type="button" data-intro-text>Отмена</button>
+          </div>
         </form>
+      </div>
+      <div id="intro-states" class="intro-states" hidden>
+        <section id="checking-screen" class="intro-state intro-status" aria-live="polite" hidden>
+          <p data-intro-text data-intro-scale="1.5" data-intro-wrap>Подключение к серверу...</p>
+          <button id="checking-cancel" class="intro-button" type="button" data-intro-text data-intro-scale="1.5">Отмена</button>
+        </section>
+        <section id="loading-screen" class="intro-state intro-status" tabindex="-1" aria-live="polite" hidden>
+          <div class="intro-loading-content">
+            <p data-intro-text data-intro-scale="1.5">Загрузка сайта...</p>
+            <div class="intro-load-track" role="progressbar" aria-label="Подготовка интерфейса" aria-valuemin="0" aria-valuemax="100"><div id="load-progress" class="intro-load-progress"></div></div>
+            <canvas id="world-build" class="world-build" width="104" height="104" role="img" aria-label="Карта загрузки участков мира"></canvas>
+          </div>
+        </section>
+        <section id="failure-screen" class="intro-state intro-status intro-failure" aria-live="assertive" hidden>
+          <p data-intro-text data-intro-scale="1.5" data-intro-wrap>Не удалось подключиться к серверу</p>
+          <p id="failure-reason" data-intro-text data-intro-scale="1.5" data-intro-wrap>Неверный X-API ключ</p>
+          <button id="failure-back" class="intro-button" type="button" data-intro-text data-intro-scale="1.5">К вводу ключа</button>
+        </section>
+        <section id="menu-screen" class="intro-state intro-menu" aria-labelledby="menu-title" hidden>
+          <div class="intro-menu-heading"><p class="intro-menu-kicker" data-intro-text data-intro-scale="4">OKO</p><h2 id="menu-title" data-intro-text data-intro-scale="2">ВИДЕО ПОД КОНТРОЛЕМ</h2></div>
+          <button id="menu-connect-button" class="intro-button" type="button" data-intro-text>По ключу</button>
+        </section>
       </div>
       <div class="world-caption"><span class="tiny-pixel-flower" aria-hidden="true"></span> НОВЫЙ МИР. ТОЧНЫЙ ВЗГЛЯД.</div>
     </section>

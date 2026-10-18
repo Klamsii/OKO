@@ -22,7 +22,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_MODULES = {"app.js", "config.js", "worlds.js", "audio.js", "archive.js",
-                    "report.js", "controls.js", "analysis-scope.js"}
+                    "report.js", "controls.js", "analysis-scope.js", "intro-flow.js", "intro-font.js"}
 
 
 @contextmanager
@@ -197,7 +197,7 @@ def main():
                 report["appearance"] = appearance
                 check(appearance["fontLoaded"] and "Pixel" in appearance["font"],
                       "Pixel font is loaded and used by the body")
-                check(prefix in appearance["wood"] and "oak-sign.svg" in appearance["wood"],
+                check(prefix in appearance["wood"] and "oak-hanging-sign.svg" in appearance["wood"],
                       "Wooden sign texture resolves inside the current release")
                 check(prefix in appearance["fallback"] and "cherry-grove.png" in appearance["fallback"],
                       "Cherry grove CSS background resolves inside the current release")
@@ -206,8 +206,8 @@ def main():
                       "The released oko wordmark loaded successfully")
                 with urlopen(upstream + urlsplit(appearance["logo"]).path, timeout=20) as logo_response:
                     logo = logo_response.read().decode("utf-8")
-                check("#3c302a" in logo and "#263e31" in logo,
-                      "The painted sign lettering retains its dark capitals and green eyes")
+                check('viewBox="0 0 352 112"' in logo and 'id="o-outline"' in logo and 'id="k-outline"' in logo,
+                      "The released sign uses the uppercase Ender-eye wordmark")
                 for key in ("styles", "scripts", "configuredAssets"):
                     check(bool(appearance[key]) and all(urlsplit(url).path.startswith(prefix)
                                                        for url in appearance[key]),

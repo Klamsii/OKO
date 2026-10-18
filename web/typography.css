@@ -1,0 +1,136 @@
+/* Monocraft has open, narrow pixel glyphs; sizes match its own grid and metrics. */
+:root{--tool-font:Pixel,monospace}
+body{font-size:18px;line-height:1.5;font-synthesis:none;font-variant-ligatures:none}
+button,input,select,textarea{font-synthesis:none}
+.game-button{font-size:18px;line-height:1.4}
+.nav-brand,html[data-world=overworld] .nav-brand{font-size:22px;line-height:1.3}
+.nav-location,html[data-world=overworld] .nav-location{font-size:16px;line-height:1.3}
+.nav-world,html[data-world=overworld] .nav-world{font-size:14px;line-height:1.3}
+
+.welcome-scene .scene-eyebrow{font-size:18px;line-height:1.5;letter-spacing:1px}
+.welcome-scene .sign-overline,.welcome-scene .sign-subtitle{font-size:18px;line-height:1.5;letter-spacing:1px}
+.welcome-scene .welcome-message{font-size:20px;line-height:1.5}
+.welcome-scene .key-form label{font-family:var(--pixel);font-size:22px;line-height:1.4}
+.welcome-scene .key-field input,.welcome-scene .key-field input::placeholder{font-family:var(--pixel);font-size:22px;line-height:1.4}
+.welcome-scene .welcome-menu-button{font-family:var(--pixel);font-size:24px;line-height:1.25}
+.welcome-scene .form-error,.welcome-scene .next-hint{font-size:18px;line-height:1.5}
+.welcome-scene .world-caption{font-size:16px;line-height:1.5}
+
+.workspace-heading .scene-eyebrow{font-size:16px;line-height:1.5}
+.analysis-scope,.scope-label,.analysis-scope .scope-label{font-size:18px;line-height:1.5}
+.analysis-scope>span:last-child{font-family:var(--pixel);font-size:18px;line-height:1.5}
+.panel-topline,.video-time,.player-controls .video-time,.zoom-button,.player-controls #zoom-button{font-size:14px;line-height:1.4}
+.panel-topline{height:auto;min-height:25px}
+.empty-state h3,.chat-header h2{font-size:24px;line-height:1.4}
+.empty-state p,.chat-header p,.chat-empty p,.playback-error{font-size:18px;line-height:1.6}
+.chat-header p{margin-top:10px}
+.selected-file #file-name{font-size:18px;line-height:1.4}
+.selected-file small,.analysis-status{font-size:16px;line-height:1.5}
+.analyze-button,.secondary-button{font-size:18px;line-height:1.4}
+.event-count{font-size:16px;line-height:1}
+.chat-entry,.chat-entry.event-reviewed,.event-description,.event-type{font-size:18px;line-height:1.5}
+.chat-speaker,.event-time,.event-why,.event-meta,.review-reason,.event-reviewed{font-size:16px;line-height:1.5}
+.chat-footer,.workspace-footer,.chat-empty>span:last-child,.rule-details,.evidence-thumb>span{font-size:14px;line-height:1.5}
+.chat-footer,.workspace-footer{white-space:normal;flex-wrap:wrap}
+.new-events,.zoom-badge,.analysis-error{font-size:18px;line-height:1.5}
+
+.archive-heading .scene-eyebrow{font-size:16px;line-height:1.5}
+.archive-heading p:last-child,#archive-status,.archive-pagination{font-size:18px;line-height:1.5}
+.archive-empty h2{font-size:24px;line-height:1.5}
+.archive-empty p{font-size:18px;line-height:1.5}
+.control-label,.archive-controls .control-label{font-size:16px;line-height:1.5}
+.archive-controls .choice-trigger,.choice-menu{font-size:18px;line-height:1.4}
+.archive-controls .archive-search-box input{font-size:20px;line-height:1.4}
+.archive-controls #archive-refresh-button,.archive-pagination .game-button,.archive-pagination button{font-size:18px;line-height:1.4}
+.archive-pagination #archive-page,.archive-pagination .game-button{white-space:nowrap;flex-shrink:0}
+.archive-card-head h3,.archive-card h2,.archive-card h3{font-size:22px;line-height:1.4}
+.archive-card .archive-card-actions .game-button{font-size:17px;line-height:1.4}
+.archive-card .archive-card-meta,.archive-card .archive-warning{font-size:17px;line-height:1.5}
+.status-badge,.review-badge,.save-badge{font-size:16px;line-height:1.4}
+.report-tools{font-size:18px;line-height:1.5}
+.report-tools h2,.report-tools h3{font-size:24px;line-height:1.4}
+.report-tools button,.report-actions .game-button{font-size:17px;line-height:1.4}
+.report-meta,.save-status,.report-notes .report-scope-label{font-size:16px;line-height:1.5}
+.report-tools .review-segment,.report-tools .report-json-note,.report-notes p{font-size:17px;line-height:1.5}
+.report-notes .report-scope-verdict{font-size:20px;line-height:1.5}
+.timeline-scale,.timeline-legend,.timeline-preview figcaption,.timeline-viewer figcaption{font-size:16px;line-height:1.4}
+.end-portal-button span,.end-exit-footer>p{font-size:18px;line-height:1.5}
+
+.game-dialog{font-size:19px;line-height:1.6}
+.game-dialog h2{font-size:28px;line-height:1.4}
+.dialog-kicker,.dialog-note,.evidence-dialog p{font-size:17px;line-height:1.5}
+.game-dialog>.game-button:not(.dialog-close),.skip-transition{font-size:18px;line-height:1.4}
+.credits-content{font-size:22px;line-height:1.8}
+.credits-subtitle,.credits-role{font-size:20px;line-height:1.6}
+.credits-name{font-size:28px;line-height:1.5}
+.credits-speaker,.credits-hint{font-size:16px;line-height:1.5}
+.credits-heading,.credits-final{font-size:28px;line-height:1.5}
+.credits-controls .game-button,#credits-error{font-size:18px;line-height:1.4}
+
+@media(min-width:741px){
+ .archive-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .archive-controls .archive-search-field{grid-column:1/3}
+ .archive-controls #archive-refresh-button{grid-column:3;grid-row:1}
+}
+@media(max-width:740px){
+ body{font-size:17px}
+ .nav-brand,html[data-world=overworld] .nav-brand{font-size:18px}
+ .welcome-scene .scene-eyebrow{font-size:14px;letter-spacing:.5px}
+ .welcome-scene .sign-overline,.welcome-scene .sign-subtitle{font-size:14px;letter-spacing:.5px}
+ .welcome-scene .welcome-message{font-size:17px;line-height:1.5}
+ .welcome-scene .key-form label,.welcome-scene .key-field input,.welcome-scene .key-field input::placeholder{font-size:20px}
+ .welcome-scene .welcome-menu-button{font-size:22px}
+ .welcome-scene .form-error,.welcome-scene .next-hint{font-size:16px}
+ .welcome-scene .world-caption{font-size:14px}
+ .workspace-heading .scene-eyebrow,.archive-heading .scene-eyebrow{font-size:14px}
+ .analysis-scope,.analysis-scope .scope-label,.analysis-scope>span:last-child{font-size:16px}
+ .panel-topline{font-size:12px;gap:10px}
+ .video-time,.player-controls .video-time,.player-controls #zoom-button{font-size:12px}
+ .player-controls .video-time{gap:3px}
+ .empty-state h3,.chat-header h2{font-size:22px}
+ .empty-state p,.chat-header p,.chat-empty p{font-size:16px}
+ .selected-file #file-name,.analyze-button{font-size:16px}
+ .selected-file small,.analysis-status{font-size:14px}
+ .file-toolbar{flex-wrap:wrap}
+ .file-toolbar .selected-file{width:100%}
+ .file-toolbar .analyze-button{margin-left:auto}
+ .chat-footer,.workspace-footer,.chat-empty>span:last-child{font-size:12px}
+ .archive-card-head h3,.archive-card h3{font-size:20px}
+ .archive-card .archive-card-actions .game-button{font-size:15px;padding:10px 8px}
+ .archive-controls .choice-trigger,.choice-menu{font-size:17px}
+ .control-label,.archive-controls .control-label{font-size:15px}
+ .archive-controls .archive-search-box input{font-size:18px}
+ .archive-pagination{gap:10px}
+ .archive-pagination .game-button{font-size:16px;padding:8px 10px}
+ .report-tools .review-segment{font-size:15px}
+ .end-portal-button span,.end-exit-footer>p{font-size:16px}
+ .game-dialog{font-size:17px}
+ .game-dialog h2{font-size:24px}
+ .dialog-note,.dialog-kicker{font-size:16px}
+ .credits-content{font-size:19px}
+ .credits-name{font-size:25px}
+ .credits-role,.credits-subtitle,.credits-controls .game-button{font-size:17px}
+ .credits-hint{font-size:14px}
+}
+@media(max-width:600px){
+ .archive-controls{grid-template-columns:minmax(0,1fr)}
+ .archive-controls .archive-search-field{grid-column:1}
+ .archive-controls #archive-refresh-button{grid-column:1;grid-row:auto}
+ .report-tools .review-segments{flex-direction:column;align-items:stretch}
+ .report-tools .review-segment{flex:auto;justify-content:flex-start;white-space:nowrap;font-size:17px;padding:10px 12px}
+}
+@media(min-width:601px) and (max-width:900px){
+ .archive-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .archive-controls .archive-search-field{grid-column:1/-1}
+ .archive-controls #archive-refresh-button{grid-column:2;grid-row:3}
+}
+@media(max-width:360px){
+ .welcome-scene .scene-eyebrow{font-size:12px}
+ .welcome-scene .welcome-message{font-size:16px}
+ .welcome-scene .welcome-menu-button{font-size:20px}
+ .welcome-scene .world-caption{font-size:12px}
+ .game-nav .nav-brand{gap:8px}
+ .game-nav .brand-gem{width:14px;height:18px}
+ .archive-pagination{gap:8px;font-size:14px}
+ .archive-pagination .game-button{font-size:14px;padding:8px 6px}
+}

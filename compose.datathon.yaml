@@ -1,7 +1,7 @@
 # Use explicitly: docker compose -f compose.datathon.yaml up --build -d
 # DATATHON_API_URL must be reachable from this container (not container loopback).
 services:
-  oka:
+  oko:
     build: .
     env_file: .env
     environment:

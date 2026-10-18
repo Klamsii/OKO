@@ -59,7 +59,7 @@ export function modelReport(result,run,seek){
   if(result.stage_seconds&&Object.keys(result.stage_seconds).length)root.append(h('details',{},h('summary',{},'Время работы'),Object.entries(result.stage_seconds).map(([name,seconds])=>h('p',{},`${name}: ${Number(seconds).toFixed(2)} с`))));
   root.append(h('button',{type:'button',class:'game-button',onclick:()=>{
     const blob=new Blob([JSON.stringify({job_id:run.job_id||run.id,status:run.status||'done',result},null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob),link=h('a',{href:url,download:`OKA-${run.job_id||run.id||'report'}.json`});
+    const url=URL.createObjectURL(blob),link=h('a',{href:url,download:`OKO-${run.job_id||run.id||'report'}.json`});
     document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }},'Скачать подробный отчёт JSON'));
   return root;

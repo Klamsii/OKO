@@ -1,0 +1,11 @@
+Monocraft Regular v4.2.1, by Idrees Hassan and contributors
+Official project: https://github.com/IdreesInc/Monocraft
+Release: https://github.com/IdreesInc/Monocraft/releases/tag/v4.2.1
+Original archive: https://github.com/IdreesInc/Monocraft/releases/download/v4.2.1/Monocraft-ttf.zip
+Archive member: Monocraft-ttf/Monocraft.ttf
+Local file: Monocraft-Regular.ttf (unmodified original binary)
+License: SIL Open Font License 1.1; see Monocraft-OFL.txt.
+
+Verified locally: 1700 glyphs, 1475 mapped Unicode code points, all 66
+Russian Cyrillic uppercase/lowercase letters including Yo (U+0401/U+0451).
+The font is served locally. No external font service is used at runtime.

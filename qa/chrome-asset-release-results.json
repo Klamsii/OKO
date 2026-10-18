@@ -9,7 +9,7 @@
     "Cherry grove CSS background resolves inside the current release",
     "JavaScript painted the 640×360 cherry grove background",
     "The released oko wordmark loaded successfully",
-    "The painted sign lettering retains its dark capitals and green eyes",
+    "The released sign uses the uppercase Ender-eye wordmark",
     "All styles resolve inside one frontend release directory",
     "All scripts resolve inside one frontend release directory",
     "All configuredAssets resolve inside one frontend release directory",
@@ -30,301 +30,385 @@
   "bad_responses": [],
   "release_assets": [
     {
-      "path": "/_ui/d599f26df387ec4e/controls-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/styles.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/worlds-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/controls-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/styles.css",
+      "path": "/_ui/dd8fa6078e60480e/worlds-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/ui-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/ui-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/branding.css",
+      "path": "/_ui/dd8fa6078e60480e/branding.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/welcome-form.css",
-      "status": 200,
-      "type": "stylesheet",
-      "content_type": "text/css; charset=utf-8"
-    },
-    {
-      "path": "/_ui/d599f26df387ec4e/assets/fonts/PressStart2P-Regular.ttf",
+      "path": "/_ui/dd8fa6078e60480e/assets/fonts/Monocraft-Regular.ttf",
       "status": 200,
       "type": "font",
       "content_type": "font/ttf"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg",
+      "path": "/_ui/dd8fa6078e60480e/typography.css",
+      "status": 200,
+      "type": "stylesheet",
+      "content_type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/server-intro.css",
+      "status": 200,
+      "type": "stylesheet",
+      "content_type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/textures/sign-chain.svg",
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/hanging-chain.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg",
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png",
+      "path": "/_ui/dd8fa6078e60480e/app.js",
+      "status": 200,
+      "type": "script",
+      "content_type": "application/javascript"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/app.js",
+      "path": "/_ui/dd8fa6078e60480e/chat.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/config.js",
+      "path": "/_ui/dd8fa6078e60480e/config.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/audio.js",
+      "path": "/_ui/dd8fa6078e60480e/player.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/worlds.js",
+      "path": "/_ui/dd8fa6078e60480e/audio.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/player.js",
+      "path": "/_ui/dd8fa6078e60480e/report.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/archive.js",
+      "path": "/_ui/dd8fa6078e60480e/analysis-scope.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/chat.js",
+      "path": "/_ui/dd8fa6078e60480e/archive.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/dom.js",
+      "path": "/_ui/dd8fa6078e60480e/dom.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/analysis-scope.js",
+      "path": "/_ui/dd8fa6078e60480e/intro-flow.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/report.js",
+      "path": "/_ui/dd8fa6078e60480e/credits.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/credits.js",
+      "path": "/_ui/dd8fa6078e60480e/controls.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/controls.js",
+      "path": "/_ui/dd8fa6078e60480e/intro-font.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/end.png",
+      "path": "/_ui/dd8fa6078e60480e/worlds.js",
+      "status": 200,
+      "type": "script",
+      "content_type": "application/javascript"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/glyphs.json",
+      "status": 200,
+      "type": "fetch",
+      "content_type": "application/json"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/nonlatin_european.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/nether.png",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/accented.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/controls-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/ascii.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/nether.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/end.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/styles.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/worlds-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/worlds-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/styles.css",
+      "path": "/_ui/dd8fa6078e60480e/ui-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/ui-refresh.css",
+      "path": "/_ui/dd8fa6078e60480e/branding.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/branding.css",
+      "path": "/_ui/dd8fa6078e60480e/controls-refresh.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/fonts/PressStart2P-Regular.ttf",
+      "path": "/_ui/dd8fa6078e60480e/typography.css",
+      "status": 200,
+      "type": "stylesheet",
+      "content_type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/fonts/Monocraft-Regular.ttf",
       "status": 200,
       "type": "font",
       "content_type": "font/ttf"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/welcome-form.css",
+      "path": "/_ui/dd8fa6078e60480e/server-intro.css",
       "status": 200,
       "type": "stylesheet",
       "content_type": "text/css; charset=utf-8"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg",
+      "path": "/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/app.js",
+      "path": "/_ui/dd8fa6078e60480e/app.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/textures/sign-chain.svg",
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/hanging-chain.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg",
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg",
       "status": 200,
       "type": "image",
       "content_type": "image/svg+xml"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/config.js",
+      "path": "/_ui/dd8fa6078e60480e/config.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/audio.js",
+      "path": "/_ui/dd8fa6078e60480e/audio.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/player.js",
+      "path": "/_ui/dd8fa6078e60480e/worlds.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/worlds.js",
+      "path": "/_ui/dd8fa6078e60480e/player.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/chat.js",
+      "path": "/_ui/dd8fa6078e60480e/chat.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/report.js",
+      "path": "/_ui/dd8fa6078e60480e/report.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/archive.js",
+      "path": "/_ui/dd8fa6078e60480e/credits.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/dom.js",
+      "path": "/_ui/dd8fa6078e60480e/archive.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/credits.js",
+      "path": "/_ui/dd8fa6078e60480e/analysis-scope.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/analysis-scope.js",
+      "path": "/_ui/dd8fa6078e60480e/dom.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/controls.js",
+      "path": "/_ui/dd8fa6078e60480e/intro-flow.js",
       "status": 200,
       "type": "script",
       "content_type": "application/javascript"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png",
+      "path": "/_ui/dd8fa6078e60480e/controls.js",
+      "status": 200,
+      "type": "script",
+      "content_type": "application/javascript"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/nether.png",
+      "path": "/_ui/dd8fa6078e60480e/intro-font.js",
+      "status": 200,
+      "type": "script",
+      "content_type": "application/javascript"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/glyphs.json",
+      "status": 200,
+      "type": "fetch",
+      "content_type": "application/json"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/nonlatin_european.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
     },
     {
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/end.png",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/ascii.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/accented.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/nether.png",
+      "status": 200,
+      "type": "image",
+      "content_type": "image/png"
+    },
+    {
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/end.png",
       "status": 200,
       "type": "image",
       "content_type": "image/png"
@@ -343,48 +427,53 @@
     "/static/controls.js",
     "/static/credits.js",
     "/static/dom.js",
+    "/static/intro-flow.js",
+    "/static/intro-font.js",
     "/static/player.js",
     "/static/report.js",
+    "/static/server-intro.css",
     "/static/styles.css",
+    "/static/typography.css",
     "/static/ui-refresh.css",
     "/static/welcome-form.css",
     "/static/worlds-refresh.css",
     "/static/worlds.js"
   ],
-  "revision": "d599f26df387ec4e",
+  "revision": "dd8fa6078e60480e",
   "appearance": {
     "font": "Pixel, monospace",
     "fontLoaded": true,
-    "wood": "url(\"http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg\")",
-    "fallback": "url(\"http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png\")",
+    "wood": "url(\"http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg\")",
+    "fallback": "url(\"http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png\")",
     "canvas": [
       640,
       360
     ],
-    "logo": "http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg",
+    "logo": "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg",
     "logoLoaded": true,
     "logoIntrinsicSize": [
       300,
-      90
+      95
     ],
     "greeting": "> Добро пожаловать на пост наблюдения.",
     "styles": [
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/styles.css",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/controls-refresh.css",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/worlds-refresh.css",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/ui-refresh.css",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/branding.css",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/welcome-form.css"
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/styles.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/controls-refresh.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/worlds-refresh.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/ui-refresh.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/branding.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/typography.css",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/server-intro.css"
     ],
     "scripts": [
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/app.js"
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/app.js"
     ],
     "configuredAssets": [
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/music/overworld.m4a",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/music/netherworld.m4a",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/music/end.m4a",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/assets/music/titles.m4a",
-      "http://127.0.0.1:49891/_ui/d599f26df387ec4e/content/credits.json"
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/music/overworld.m4a",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/music/netherworld.m4a",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/music/end.m4a",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/assets/music/titles.m4a",
+      "http://127.0.0.1:56895/_ui/dd8fa6078e60480e/content/credits.json"
     ]
   },
   "proxy_requests": [
@@ -402,7 +491,15 @@
     },
     {
       "phase": "warm",
+      "path": "/static/server-intro.css"
+    },
+    {
+      "phase": "warm",
       "path": "/static/styles.css"
+    },
+    {
+      "phase": "warm",
+      "path": "/static/typography.css"
     },
     {
       "phase": "warm",
@@ -454,6 +551,14 @@
     },
     {
       "phase": "warm",
+      "path": "/static/intro-flow.js"
+    },
+    {
+      "phase": "warm",
+      "path": "/static/intro-font.js"
+    },
+    {
+      "phase": "warm",
       "path": "/static/player.js"
     },
     {
@@ -482,95 +587,111 @@
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/controls-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/assets/fonts/Monocraft-Regular.ttf"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/styles.css"
+      "path": "/_ui/dd8fa6078e60480e/styles.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/worlds-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/controls-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/fonts/PressStart2P-Regular.ttf"
+      "path": "/_ui/dd8fa6078e60480e/worlds-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/ui-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/ui-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/branding.css"
+      "path": "/_ui/dd8fa6078e60480e/branding.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/welcome-form.css"
+      "path": "/_ui/dd8fa6078e60480e/typography.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/app.js"
+      "path": "/_ui/dd8fa6078e60480e/server-intro.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg"
+      "path": "/_ui/dd8fa6078e60480e/app.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png"
+      "path": "/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/sign-chain.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/hanging-chain.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/config.js"
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/audio.js"
+      "path": "/_ui/dd8fa6078e60480e/worlds.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/worlds.js"
+      "path": "/_ui/dd8fa6078e60480e/config.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/player.js"
+      "path": "/_ui/dd8fa6078e60480e/audio.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/chat.js"
+      "path": "/_ui/dd8fa6078e60480e/player.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/report.js"
+      "path": "/_ui/dd8fa6078e60480e/chat.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/archive.js"
+      "path": "/_ui/dd8fa6078e60480e/report.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/credits.js"
+      "path": "/_ui/dd8fa6078e60480e/archive.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/dom.js"
+      "path": "/_ui/dd8fa6078e60480e/credits.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/analysis-scope.js"
+      "path": "/_ui/dd8fa6078e60480e/dom.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/controls.js"
+      "path": "/_ui/dd8fa6078e60480e/analysis-scope.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/intro-flow.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/controls.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/intro-font.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/glyphs.json"
     },
     {
       "phase": "release",
@@ -578,11 +699,23 @@
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/nether.png"
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/nether.png"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/end.png"
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/end.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/nonlatin_european.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/accented.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/ascii.png"
     },
     {
       "phase": "release",
@@ -594,107 +727,135 @@
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/styles.css"
+      "path": "/_ui/dd8fa6078e60480e/assets/fonts/Monocraft-Regular.ttf"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/controls-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/styles.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/fonts/PressStart2P-Regular.ttf"
+      "path": "/_ui/dd8fa6078e60480e/worlds-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/worlds-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/ui-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/branding.css"
+      "path": "/_ui/dd8fa6078e60480e/controls-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/ui-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/branding.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/welcome-form.css"
+      "path": "/_ui/dd8fa6078e60480e/typography.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/app.js"
+      "path": "/_ui/dd8fa6078e60480e/server-intro.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg"
+      "path": "/_ui/dd8fa6078e60480e/app.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png"
+      "path": "/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/sign-chain.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/hanging-chain.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/config.js"
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/audio.js"
+      "path": "/_ui/dd8fa6078e60480e/config.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/worlds.js"
+      "path": "/_ui/dd8fa6078e60480e/audio.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/player.js"
+      "path": "/_ui/dd8fa6078e60480e/worlds.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/chat.js"
+      "path": "/_ui/dd8fa6078e60480e/player.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/report.js"
+      "path": "/_ui/dd8fa6078e60480e/chat.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/archive.js"
+      "path": "/_ui/dd8fa6078e60480e/report.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/credits.js"
+      "path": "/_ui/dd8fa6078e60480e/archive.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/dom.js"
+      "path": "/_ui/dd8fa6078e60480e/credits.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/analysis-scope.js"
+      "path": "/_ui/dd8fa6078e60480e/dom.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/controls.js"
+      "path": "/_ui/dd8fa6078e60480e/analysis-scope.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/nether.png"
+      "path": "/_ui/dd8fa6078e60480e/intro-flow.js"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/end.png"
+      "path": "/_ui/dd8fa6078e60480e/controls.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/intro-font.js"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/nether.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/end.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/glyphs.json"
     },
     {
       "phase": "release",
       "path": "/ui/v1/session"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/nonlatin_european.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/accented.png"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/intro-font/ascii.png"
     },
     {
       "phase": "release",
@@ -706,51 +867,55 @@
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/fonts/PressStart2P-Regular.ttf"
+      "path": "/_ui/dd8fa6078e60480e/assets/fonts/Monocraft-Regular.ttf"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/styles.css"
+      "path": "/_ui/dd8fa6078e60480e/styles.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/worlds-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/controls-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/controls-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/worlds-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/ui-refresh.css"
+      "path": "/_ui/dd8fa6078e60480e/ui-refresh.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/branding.css"
+      "path": "/_ui/dd8fa6078e60480e/branding.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/welcome-form.css"
+      "path": "/_ui/dd8fa6078e60480e/typography.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/branding/oko-sign-lettering.svg"
+      "path": "/_ui/dd8fa6078e60480e/server-intro.css"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/end-scene.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/branding/oko-ender-wordmark.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/worlds/cherry-grove.png"
+      "path": "/_ui/dd8fa6078e60480e/end-scene.svg"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/sign-chain.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/worlds/cherry-grove.png"
     },
     {
       "phase": "release",
-      "path": "/_ui/d599f26df387ec4e/assets/textures/oak-sign.svg"
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/hanging-chain.svg"
+    },
+    {
+      "phase": "release",
+      "path": "/_ui/dd8fa6078e60480e/assets/textures/oak-hanging-sign.svg"
     },
     {
       "phase": "release",
