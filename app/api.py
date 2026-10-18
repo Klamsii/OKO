@@ -66,11 +66,20 @@ def require_key(x_api_key: str | None = Header(default=None)):
         raise HTTPException(401, "Неверный X-API-Key")
 
 
+def _browser_origin(request):
+    # A TLS-terminating proxy can forward HTTPS browser traffic to this app
+    # over HTTP. Pin the browser-facing origin in that deployment instead of
+    # trusting a client-supplied X-Forwarded-Proto header.
+    return os.getenv("OKO_PUBLIC_ORIGIN", "").strip().rstrip("/") or f"{request.url.scheme}://{request.headers.get('host', '')}"
+
+
 def _same_origin(request):
     origin = request.headers.get("origin")
     if origin:
         parsed = urlsplit(origin)
-        if parsed.netloc.lower() != request.headers.get("host", "").lower() or parsed.scheme != request.url.scheme:
+        expected = urlsplit(_browser_origin(request))
+        if (parsed.scheme != expected.scheme or parsed.netloc.lower() != expected.netloc.lower()
+                or parsed.path or parsed.query or parsed.fragment):
             raise HTTPException(403, "Запрос из другого источника запрещён")
 
 
@@ -221,7 +230,7 @@ async def login(request: Request, response: Response):
     if not isinstance(key, str) or not key_valid(key):
         raise HTTPException(401, "Неверный ключ доступа")
     response.set_cookie(COOKIE, _session_token(), max_age=settings.session_hours * 3600,
-                        httponly=True, samesite="strict", secure=request.url.scheme == "https", path="/")
+                        httponly=True, samesite="strict", secure=_browser_origin(request).startswith("https://"), path="/")
     response.headers["Cache-Control"] = "no-store"
     return capabilities_body()
 

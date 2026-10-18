@@ -114,6 +114,21 @@ def test_private_session_lifecycle_origin_and_expiry(service):
     assert client.get('/ui/v1/session').status_code == 401
 
 
+def test_https_origin_behind_tls_proxy_keeps_csrf_protection(service, monkeypatch):
+    _, client, _ = service
+    monkeypatch.setenv('OKO_PUBLIC_ORIGIN', 'https://testserver')
+    response = client.post('/ui/v1/session', json={'api_key': KEY},
+                           headers={'Origin': 'https://testserver'})
+    assert response.status_code == 200
+    assert 'secure' in response.headers['set-cookie'].lower()
+    assert client.post('/ui/v1/session', json={'api_key': KEY},
+                       headers={'Origin': 'http://testserver'}).status_code == 403
+    assert client.post('/ui/v1/session', json={'api_key': KEY},
+                       headers={'Origin': 'https://other.example'}).status_code == 403
+    assert client.delete('/ui/v1/session', headers={'Origin': 'https://testserver',
+                                                   'X-API-Key': KEY}).status_code == 200
+
+
 def test_capabilities_and_all_documented_upload_containers(service):
     _, client, _ = service
     login(client)
