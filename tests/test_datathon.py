@@ -47,7 +47,7 @@ def reports():
 
 @pytest.fixture
 def upstream():
-    state = {"uploads": [], "requests": [], "reply": reports(), "status": 200}
+    state = {"uploads": [], "requests": [], "reply": reports(), "status": 200, "health": {"ready": True}}
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args): pass
         def send(self, code, body):
@@ -63,7 +63,7 @@ def upstream():
             state["requests"].append(self.path)
             if self.headers.get("X-API-Key") != MODEL_KEY: return self.send(401,{})
             if state["status"] != 200: return self.send(state["status"],{})
-            if self.path == "/health": return self.send(200, {"ready": True})
+            if self.path == "/health": return self.send(200, state["health"])
             self.send(200, state["reply"][1] if self.path.endswith("/report") else state["reply"][0])
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
@@ -107,6 +107,28 @@ def test_original_video_crosses_real_http_worker_and_retains_rich_report(tmp_pat
         again = client.post("/ui/v1/analyze", files={"file":("x.mov", original)}, headers={"Idempotency-Key":"one"})
         assert again.json()["job_id"] == job_id and db.claim_next(settings.data_dir) is None
         assert run["result"]["analysis_scope"]["mode"] == "datathon"
+        # An outage must not create doomed jobs, lose the saved original, or
+        # break replay of an upload whose response was lost before the outage.
+        state["health"] = {"ready": False}
+        for route, headers in [("/ui/v1/analyze", {}), ("/api/v1/analyze", {"X-API-Key": KEY})]:
+            blocked = client.post(route, files={"file": ("x.mov", original)}, headers=headers)
+            assert blocked.status_code == 503 and blocked.headers["Retry-After"] == "10"
+            assert blocked.headers["X-Model-State"] == "loading"
+        retry_route = f"/ui/v1/runs/{job_id}/reanalyze"
+        assert client.post(retry_route, headers={"Idempotency-Key": "retry"}).status_code == 503
+        again = client.post("/ui/v1/analyze", files={"file": ("x.mov", original)}, headers={"Idempotency-Key": "one"})
+        assert again.json()["job_id"] == job_id
+        conflict = client.post("/ui/v1/analyze", files={"file": ("x.mov", original+b"changed")}, headers={"Idempotency-Key": "one"})
+        assert conflict.status_code == 409
+        assert db.claim_next(settings.data_dir) is None
+        assert not list((settings.data_dir/"uploads").iterdir())
+        assert client.get(f"/ui/v1/runs/{job_id}/video").content == original
+        state["health"] = {"ready": True}
+        recovered = client.post(retry_route, headers={"Idempotency-Key": "retry"})
+        assert recovered.status_code == 200
+        state["health"] = {"ready": False}
+        assert client.post(retry_route, headers={"Idempotency-Key": "retry"}).json() == recovered.json()
+        assert len(state["uploads"]) == 1  # Only the explicitly processed job reached Qwen.
 
 
 @pytest.mark.parametrize("change", ["time", "jpeg", "verdict", "bounds", "frames"])
@@ -130,8 +152,25 @@ def test_no_violation_preserves_optional_issues():
 
 def test_health_rejects_wrong_key(upstream):
     url, _ = upstream
-    assert check_health(url, "wrong")["ready"] is False
+    assert check_health(url, "wrong")["code"] == "auth_error"
     assert check_health(url, MODEL_KEY)["ready"] is True
+
+
+@pytest.mark.parametrize("body,code", [({"ready": False}, "loading"), ({"status": "ok"}, "wrong_endpoint"), ({"ready": "true"}, "wrong_endpoint")])
+def test_health_requires_model_contract(upstream, body, code):
+    url, state = upstream; state["health"] = body
+    result = check_health(url, MODEL_KEY)
+    assert result["ready"] is False and result["code"] == code
+    assert MODEL_KEY not in json.dumps(result) and url not in json.dumps(result)
+
+
+@pytest.mark.parametrize("exception,code", [(httpx.ConnectError("private network details"), "unavailable"), (httpx.ReadTimeout("private network details"), "timeout")])
+def test_health_transport_categories(monkeypatch, exception, code):
+    def fail(*args, **kwargs): raise exception
+    monkeypatch.setattr(httpx.Client, "send", fail)
+    result = check_health("https://model.example", MODEL_KEY)
+    assert result["ready"] is False and result["code"] == code
+    assert "private network" not in result["message"]
 
 
 @pytest.mark.parametrize("url", ["https://key:secret@example.com", "https://example.com?token=secret", "file:///tmp", ""])

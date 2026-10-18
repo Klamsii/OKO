@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, Response, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse
+from starlette.concurrency import run_in_threadpool
 
 from .config import Settings
 from .analysis_scope import describe_analysis, scope_for_run
@@ -241,12 +242,23 @@ def ui_health():
     return {"ok": True, **capabilities_body()}
 
 
+@app.get("/api/v1/model-health", dependencies=[Depends(require_key)])
 @app.get("/ui/v1/model-health", dependencies=[Depends(require_ui)])
 def model_health():
     if settings.analysis_backend != "datathon":
         return {"ready": None, "message": "Включён локальный детектор, Qwen не подключён."}
     from .datathon import check_health
     return check_health(settings.datathon_api_url, settings.datathon_api_key)
+
+
+def _create_ready_run(*args, **kwargs):
+    # Check outside SQLite's write lock. Existing idempotent requests must still
+    # return their original job, even when the model has subsequently gone down.
+    health = model_health() if settings.analysis_backend == "datathon" else {"ready": True}
+    try:
+        return db.create_run(*args, **kwargs, allow_create=health["ready"] is True)
+    except db.CreationUnavailableError:
+        raise HTTPException(503, health["message"], headers={"Retry-After": "10", "X-Model-State": health["code"]})
 
 
 @app.get("/ui/v1/catalog", dependencies=[Depends(require_ui)])
@@ -307,7 +319,7 @@ async def _accept(file, request, origin):
                     "max_video_seconds": settings.max_video_seconds}
         fingerprint = hashlib.sha256((digest.hexdigest() + json.dumps(snapshot, sort_keys=True)).encode()).hexdigest()
         try:
-            result = db.create_run(settings.data_dir, destination, filename, VIDEO_MIME[extension],
+            result = await run_in_threadpool(_create_ready_run, settings.data_dir, destination, filename, VIDEO_MIME[extension],
                                    digest.hexdigest(), key, fingerprint, origin, snapshot, accepted_at=accepted_at)
         except db.QueueFullError as exc:
             raise HTTPException(503, str(exc))
@@ -409,7 +421,7 @@ def reanalyze(job_id: str, request: Request):
             with destination.open("rb") as stream:
                 content_hash = hashlib.file_digest(stream, "sha256").hexdigest()
         fingerprint = hashlib.sha256((content_hash + json.dumps(snapshot, sort_keys=True)).encode()).hexdigest()
-        result = db.create_run(settings.data_dir, destination, run["filename"], asset["mime_type"],
+        result = _create_ready_run(settings.data_dir, destination, run["filename"], asset["mime_type"],
                                content_hash, key, fingerprint, "ui", snapshot)
         return {"job_id": result["job_id"], "status": "processing"}
     except db.QueueFullError as exc:

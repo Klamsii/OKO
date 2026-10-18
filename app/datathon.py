@@ -16,7 +16,9 @@ from .analysis_scope import describe_analysis
 
 
 class ModelError(ValueError):
-    pass
+    def __init__(self, message, code="model_error"):
+        super().__init__(message)
+        self.code = code
 
 
 def validate_url(url):
@@ -38,7 +40,8 @@ def _request(client, method, path, deadline, **kwargs):
                 messages = {401: "Сервер модели отклонил ключ доступа.", 403: "Сервер модели запретил доступ.",
                             413: "Видео превышает лимит сервера модели.", 415: "Сервер модели принимает оригинальные MOV.",
                             503: "Модель ещё загружается или её очередь заполнена."}
-                raise ModelError(messages.get(response.status_code, f"Сервер модели вернул HTTP {response.status_code}."))
+                code = {401: "auth_error", 403: "auth_error", 503: "loading"}.get(response.status_code, "wrong_endpoint")
+                raise ModelError(messages.get(response.status_code, f"Сервер модели вернул HTTP {response.status_code}."), code)
             content = bytearray()
             for chunk in response.iter_bytes():
                 content.extend(chunk)
@@ -49,22 +52,33 @@ def _request(client, method, path, deadline, **kwargs):
             if not isinstance(value, dict):
                 raise ValueError()
             return value
+    except httpx.TimeoutException:
+        raise ModelError("Сервер модели не ответил вовремя. Подключение будет проверено повторно.", "timeout") from None
     except httpx.HTTPError:
-        raise ModelError("Нет связи с сервером модели или истёк таймаут запроса. Проверьте подключение.") from None
+        raise ModelError("Нет связи с сервером Qwen. Администратору нужно восстановить подключение к GPU.", "unavailable") from None
     except (ValueError, UnicodeError) as exc:
         if isinstance(exc, ModelError):
             raise
-        raise ModelError("Сервер модели вернул некорректный JSON.") from None
+        raise ModelError("По настроенному адресу нет корректного ответа API Qwen.", "wrong_endpoint") from None
 
 
 def check_health(url, key):
     try:
         with httpx.Client(base_url=validate_url(url) + "/", headers={"X-API-Key": key},
                           follow_redirects=False, trust_env=False) as client:
-            ready = _request(client, "GET", "health", time.monotonic() + 3).get("ready") is True
-        return {"ready": ready, "message": "Qwen готов к анализу." if ready else "Qwen загружается."}
-    except (ModelError, ValueError):
-        return {"ready": False, "message": "Сервер Qwen недоступен или отклонил ключ. Проверьте настройки подключения."}
+            body = _request(client, "GET", "health", time.monotonic() + 3)
+            if type(body.get("ready")) is not bool:
+                raise ModelError("Подключён другой сервис. Администратору нужно проверить адрес API Qwen.", "wrong_endpoint")
+            ready = body["ready"]
+        return {"ready": ready, "code": "ready" if ready else "loading",
+                "message": "Qwen готов к анализу." if ready else "Qwen загружается. Видео можно выбрать сейчас; запуск станет доступен автоматически."}
+    except ModelError as exc:
+        message = str(exc)
+        if exc.code == "auth_error":
+            message = "Не совпадает служебный ключ сайта и Qwen. Администратору нужно исправить подключение; повторный вход на сайт не поможет."
+        return {"ready": False, "code": exc.code, "message": message}
+    except ValueError:
+        return {"ready": False, "code": "configuration", "message": "Подключение Qwen не настроено администратором."}
 
 
 def _second(value, duration):

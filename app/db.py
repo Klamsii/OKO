@@ -223,9 +223,14 @@ def _discard_temp(conn, path):
         path.unlink(missing_ok=True)
 
 
+class CreationUnavailableError(ValueError):
+    pass
+
+
 def create_run(data_dir: Path, upload_path: Path, filename: str, mime_type: str, content_hash: str,
                idempotency_key: str | None, fingerprint: str, origin: str = 'ui',
-               config_snapshot: dict | None = None, accepted_at: float | None = None) -> dict:
+               config_snapshot: dict | None = None, accepted_at: float | None = None,
+               allow_create: bool = True) -> dict:
     data_dir, upload = Path(data_dir), Path(upload_path).resolve()
     if idempotency_key is not None and (not idempotency_key or len(idempotency_key) > 256):
         raise ValueError('Некорректный ключ идемпотентности.')
@@ -244,6 +249,8 @@ def create_run(data_dir: Path, upload_path: Path, filename: str, mime_type: str,
                         raise ValueError('Ключ уже использован для другой или удалённой проверки.')
                     _discard_temp(conn, upload)
                     return {'job_id': old['id'], 'created': False}
+            if not allow_create:
+                raise CreationUnavailableError('Сервис анализа сейчас недоступен.')
             max_queue = (config_snapshot or {}).get('max_queue')
             if max_queue is not None:
                 active = conn.execute("SELECT COUNT(*) FROM jobs WHERE deleted_at IS NULL AND status IN ('queued','processing')").fetchone()[0]

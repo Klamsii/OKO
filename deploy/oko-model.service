@@ -1,0 +1,22 @@
+# Adjust User, paths and the proxy's destination port before installing.
+# /etc/oko/model.env must contain DATATHON_API_KEY and be readable only by
+# the administrator (0600); systemd reads it before switching to User.
+[Unit]
+Description=OKO Qwen video analysis API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=oko
+WorkingDirectory=/srv/oko/engine
+EnvironmentFile=/etc/oko/model.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/oko/.venv/bin/python -m peoplewatch.service --root /srv/oko/jobs --model /srv/oko/models/Qwen3-VL-8B-Instruct --yolo /srv/oko/models/yolo11n.pt --pose /srv/oko/models/yolo11n-pose.pt --decision-mode best_effort --host 127.0.0.1 --port 8766
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

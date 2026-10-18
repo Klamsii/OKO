@@ -1,0 +1,17 @@
+{
+  "test": "Original X-17 retried through browser, local site and remote Qwen on H100",
+  "accuracy_test": false,
+  "job_id": "03676a8320d34e41b81495d9a5550028",
+  "status": "done",
+  "error": null,
+  "verdict": "no_violation",
+  "preliminary": true,
+  "timings": {
+    "total_sec": 165.1778919696808,
+    "worker_sec": 164.1880000000001,
+    "includes_queue": true
+  },
+  "violations": 0,
+  "moment_assessments": 6,
+  "model_job_id": "6fb9a3d01b8446c497415053cd014619"
+}

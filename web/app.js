@@ -10,7 +10,8 @@ import {$,h,finite,terminal} from './dom.js';
 import {analysisScope} from './analysis-scope.js';
 import {ServerIntro} from './intro-flow.js';
 
-const state={authenticated:false,caps:{},file:null,displayRunId:null,generation:0,submitting:false,attempt:null,world:'overworld'};
+const state={authenticated:false,caps:{},file:null,displayRunId:null,generation:0,submitting:false,attempt:null,world:'overworld',modelHealth:null};
+let healthTimer=null,healthRequest=null;
 const runs=new Map(),reviews=new Map();let navigationRevision=0,reviewTimer=null,restoring=false;
 let loginAttempted=false;
 try{sessionStorage.removeItem('api_key');}catch{/* A disabled store does not prevent analysis. */}
@@ -50,7 +51,7 @@ const progress=h('progress',{id:'run-progress',max:1,value:0,'aria-label':'Хо�
 const reconnect=h('button',{type:'button',class:'game-button',hidden:true,onclick:()=>resumeConnections()},'Восстановить связь');$('analysis-error').after(reconnect);
 
 function showError(error){$('analysis-error').textContent=typeof error==='string'?error:error?.message||'Не удалось выполнить действие.';$('analysis-error').hidden=!error;}
-function setAuthenticated(value){state.authenticated=value;$('api-key').required=!value;}
+function setAuthenticated(value){state.authenticated=value;$('api-key').required=!value;if(!value){clearTimeout(healthTimer);state.modelHealth=null;}}
 function setStatus(message,phase='ready'){$('status-text').textContent=message;$('analysis-status').dataset.state=phase;}
 function checkName(){return state.caps.analysis_scope?.label||'Проверка видео';}
 function displayContext(){return state.displayRunId?runs.get(state.displayRunId):null;}
@@ -62,21 +63,51 @@ function updateControls(){
   const ctx=displayContext(),running=ctx&&!terminal(ctx.data?.status)&&!ctx.unknown;
   $('upload-button').disabled=state.submitting;$('video-file').disabled=state.submitting;
   $('drop-zone').setAttribute('aria-disabled',String(state.submitting));
-  $('analyze-button').disabled=state.submitting||!!running||(!state.file&&!assetAvailable(ctx?.data||{}));
+  const modelUnavailable=state.caps.analysis_backend==='datathon'&&state.modelHealth?.ready!==true;
+  $('analyze-button').disabled=state.submitting||!!running||modelUnavailable||(!state.file&&!assetAvailable(ctx?.data||{}));
+  $('analyze-button').title=modelUnavailable?(state.modelHealth?.message||'Проверяем готовность Qwen…'):'';
   const cameraOnly=state.caps.analysis_scope?.mode==='camera_visibility';
   const label=state.submitting?'ОТПРАВКА…':state.displayRunId?'ПРОВЕРИТЬ СНОВА':cameraOnly?'ПРОВЕРИТЬ КАМЕРУ':'ПРОВЕРИТЬ ВИДЕО';
   const button=$('analyze-button');if(button.lastChild?.nodeType===Node.TEXT_NODE)button.lastChild.textContent=label;else button.append(document.createTextNode(label));
   if($('clear-video'))$('clear-video').disabled=state.submitting||(!state.file&&!state.displayRunId);
 }
 
+async function refreshModelHealth(){
+  if(!state.authenticated||state.caps.analysis_backend!=='datathon')return;
+  if(healthRequest)return healthRequest;
+  clearTimeout(healthTimer);
+  healthRequest=(async()=>{
+    const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),8000);
+    const retry=$('model-health-retry');if(retry)retry.disabled=true;
+    try{state.modelHealth=await request('/ui/v1/model-health',{signal:controller.signal});}
+    catch{state.modelHealth={ready:false,code:'unavailable',message:'Не удалось проверить подключение к Qwen. Проверка повторится автоматически.'};}
+    finally{clearTimeout(timeout);}
+    const health=$('model-health');
+    if(health){health.dataset.state=state.modelHealth.ready?'ready':'unavailable';$('model-health-message').textContent=state.modelHealth.message;}
+    if(retry)retry.disabled=false;
+    if(state.file&&!state.displayRunId&&!state.submitting)setStatus(state.modelHealth.ready?'Видео выбрано. Можно запустить проверку.':'Видео выбрано. Ожидаем готовность Qwen.','selected');
+    updateControls();
+    if(state.authenticated)healthTimer=setTimeout(()=>refreshModelHealth(),10000);
+    return state.modelHealth;
+  })();
+  try{return await healthRequest;}finally{healthRequest=null;}
+}
+async function requireReadyModel(){
+  if(state.caps.analysis_backend!=='datathon')return;
+  const health=await refreshModelHealth();
+  if(!health?.ready)throw new Error(health?.message||'Qwen ещё не готов. Видео сохранено в окне, повторите запуск после восстановления связи.');
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshModelHealth();});
+
 function applyCapabilities(info){
   state.caps=info.capabilities||info.caps||info;
   state.caps.analysis_scope=analysisScope(state.caps);
   const scope=state.caps.analysis_scope;
   if(scope?.mode==='datathon'){
-    let health=$('model-health');if(!health){health=h('p',{id:'model-health',role:'status'});$('analysis-scope')?.after(health);}
-    health.textContent='Проверяем подключение Qwen…';
-    request('/ui/v1/model-health').then(data=>{health.textContent=data.message;}).catch(()=>{health.textContent='Не удалось проверить готовность Qwen.';});
+    let health=$('model-health');if(!health){health=h('div',{id:'model-health'},h('span',{id:'model-health-message',role:'status'},'Проверяем подключение Qwen…'),h('button',{id:'model-health-retry',type:'button',onclick:()=>refreshModelHealth()},'Проверить связь'));$('analysis-scope')?.after(health);}
+    health.hidden=false;state.modelHealth=null;refreshModelHealth();
+  }else{
+    clearTimeout(healthTimer);if($('model-health'))$('model-health').hidden=true;
   }
   const scopeNotice=$('analysis-scope');
   if(scopeNotice){scopeNotice.replaceChildren(h('span',{class:'scope-label'},scope?.label||'Проверка видео'),h('span',{},scope?.mode==='camera_visibility'?'Сейчас доступна проверка перекрытия камеры · V13. LLM не подключена.':scope?.mode==='datathon'?'Проверка действий с деньгами и кассовых операций. Возможные нарушения и спорные моменты — в подробном отчёте.':(scope?.limitations||[]).join(' ')||'Возможности проверки зависят от подключённых детекторов.'));}
@@ -122,7 +153,7 @@ function selectFile(file){
   if(file.size>finite(state.caps.max_upload_bytes,100*1048576)){showError(`Файл больше ${Math.floor(finite(state.caps.max_upload_bytes)/1048576)} МБ.`);return;}
   if(!canLeaveUnsaved())return;flushReview();state.generation++;state.displayRunId=null;rememberRun(null);state.file=file;state.attempt=null;
   showError('');report.clear();chat.clear();player.select(file);$('file-name').textContent=file.name;$('file-meta').textContent=`${(file.size/1048576).toFixed(1)} МБ · готово к проверке`;
-  progress.hidden=true;reconnect.hidden=true;setStatus('Видео выбрано. Можно запустить проверку.','selected');updateControls();
+  progress.hidden=true;reconnect.hidden=true;setStatus(state.caps.analysis_backend==='datathon'&&state.modelHealth?.ready!==true?'Видео выбрано. Ожидаем готовность Qwen.':'Видео выбрано. Можно запустить проверку.','selected');updateControls();
 }
 $('upload-button').addEventListener('click',()=>$('video-file').click());
 $('video-file').addEventListener('change',event=>{selectFile(event.target.files[0]);event.target.value='';});
@@ -150,11 +181,12 @@ async function startAnalysis(){
   const attempt=state.attempt&&state.attempt.file===file?state.attempt:{file,key:randomKey()};state.attempt=attempt;state.submitting=true;showError('');updateControls();
   setStatus('Загрузка видео…','uploading');progress.hidden=false;progress.value=0;
   try{
+    await requireReadyModel();
     const response=await upload(file,attempt.key,fraction=>{if(state.generation===generation){progress.value=fraction*.15;setStatus(`Загрузка: ${Math.round(fraction*100)}%`,'uploading');}});
     const id=String(response.job_id),ctx=ensureContext(id,{...response,filename:file.name});ctx.generation=generation;state.attempt=null;
     if(state.generation===generation){state.displayRunId=id;rememberRun(id);report.clear();chat.clear();history.replaceState({world:'nether',runId:id},'',`#analysis/${encodeURIComponent(id)}`);}
     poll(ctx);archive.refreshIfVisible();
-  }catch(error){if(state.generation===generation){showError(error);setStatus('Отправка не подтверждена. Повтор использует тот же ключ запроса.','error');}if(error.status&&error.status>=400&&error.status<500)state.attempt=null;}
+  }catch(error){refreshModelHealth();if(state.generation===generation){showError(error);setStatus('Проверка не запущена или ответ не получен. Видео остаётся доступным для повтора.','error');}if(error.status&&error.status>=400&&error.status<500)state.attempt=null;}
   finally{state.submitting=false;updateControls();}
 }
 $('analyze-button').addEventListener('click',()=>startAnalysis().catch(showError));
@@ -226,7 +258,7 @@ async function reanalyze(id){
   if(state.submitting)return;if(!canLeaveUnsaved())return;state.submitting=true;updateControls();
   // A retry after a lost response reuses its key; a later intentional run gets a fresh one.
   const ctx=ensureContext(id),key=ctx.reanalyzeKey||randomKey();ctx.reanalyzeKey=key;
-  try{const response=await request(`/ui/v1/runs/${encodeURIComponent(id)}/reanalyze`,{method:'POST',headers:{'Idempotency-Key':key}});ctx.reanalyzeKey=null;await openRun(String(response.job_id));archive.refreshIfVisible();}
+  try{await requireReadyModel();const response=await request(`/ui/v1/runs/${encodeURIComponent(id)}/reanalyze`,{method:'POST',headers:{'Idempotency-Key':key}});ctx.reanalyzeKey=null;await openRun(String(response.job_id));archive.refreshIfVisible();}
   finally{state.submitting=false;updateControls();}
 }
 function deletedRun(id){const ctx=runs.get(id);if(ctx){ctx.deleted=true;clearTimeout(ctx.timer);}reviews.delete(id);if(state.displayRunId===id)clearWorkspace({force:true});}
