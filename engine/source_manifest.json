@@ -1,0 +1,231 @@
+{
+  "source": "Datathon inference snapshot 2026-10-18, code31 report semantics",
+  "weights_included": false,
+  "labels_included": false,
+  "files": [
+    {
+      "path": "peoplewatch/actions.py",
+      "sha256": "17711932f7c45c0f9c4c3faedc6770c90e290d7ece616bf70a8a577f2155dc78"
+    },
+    {
+      "path": "peoplewatch/action_assessment.py",
+      "sha256": "947c53daeaadd45e67f9e242cfe7ed4738d1c3b1bc50dce9475e068699f470fa"
+    },
+    {
+      "path": "peoplewatch/action_pipeline.py",
+      "sha256": "e1c121561abf7298e3d200dd72c40da7ff6ffec440ac8c72ea33627c623658b2"
+    },
+    {
+      "path": "peoplewatch/action_report.py",
+      "sha256": "0aa9bad43cfdea5ca91d88e3151b54f4690c8c12a432c77532f49730f089abfe"
+    },
+    {
+      "path": "peoplewatch/api_result.py",
+      "sha256": "d33dbc3f867f02e31380fb9bbbead9dcdd638a4ea2a12c6ff8476d01a071a106"
+    },
+    {
+      "path": "peoplewatch/benchmark_inventory.py",
+      "sha256": "89308b27d002d3330466bf71c5fb4a22f76c50a1586283fa19dc8b697ac68881"
+    },
+    {
+      "path": "peoplewatch/best_effort.py",
+      "sha256": "5aa61b0a9c1600f68a5d12441f7773f407206f787ca60183031ed1251732bdca"
+    },
+    {
+      "path": "peoplewatch/boundary_oracle.py",
+      "sha256": "9834b7fa477f20fdfb3a2ac008f61297f53b70784645921aa78bae0daefa2c73"
+    },
+    {
+      "path": "peoplewatch/compare.py",
+      "sha256": "b7013f0dfa878cff9aa278f07ef0283d4b0826c2d7aa02861dd5386473b38365"
+    },
+    {
+      "path": "peoplewatch/compliance.py",
+      "sha256": "bc6fbae5e4bba7159b397f34f73f3d3cf776a088833de30d1915036b1ed0a52b"
+    },
+    {
+      "path": "peoplewatch/counter_evidence.py",
+      "sha256": "c4bd295358c8e768a76fae81344733ea106d42fe8475ec167c7af2495d2f7898"
+    },
+    {
+      "path": "peoplewatch/counter_motion.py",
+      "sha256": "7471dbb9d012be253b60ba2850eaa2cb4e7df0c3e6d0d2cbb1455d919fba9429"
+    },
+    {
+      "path": "peoplewatch/detector.py",
+      "sha256": "d9e398a2c5d53f6247e3c2268cbf27e43208fa7c613ece776345b034fcea35e1"
+    },
+    {
+      "path": "peoplewatch/device_view.py",
+      "sha256": "15fbc8d85a42b62e1a95295f1a8e355ad9040f861a3c33bb382e1c8b883cea84"
+    },
+    {
+      "path": "peoplewatch/edges.py",
+      "sha256": "6bf57d99da8462d6f34f6cfec310540580b7d89d05d888ca6191e718a85c6eb6"
+    },
+    {
+      "path": "peoplewatch/enhance.py",
+      "sha256": "785eb8f811432e7d77f706f499ec711c3342025d81cb93da98f344cf7806a86a"
+    },
+    {
+      "path": "peoplewatch/episode_review.py",
+      "sha256": "92393d054905238011ee9c4cfedf794fe26f495180b44cf87589acf9f9369a90"
+    },
+    {
+      "path": "peoplewatch/evidence_support.py",
+      "sha256": "e91d275865f127f3a223a2fbea6692fc214155af672c7043419b756c44f073ae"
+    },
+    {
+      "path": "peoplewatch/generation_guard.py",
+      "sha256": "909ec46b2a2360e83d47434588dae12ac790449d884532f991a823a9fba85d98"
+    },
+    {
+      "path": "peoplewatch/hand_focus.py",
+      "sha256": "b50f63e73201fbd2f81b18467e8f8a536485a9e3b0a11d63f0f6c2bb4c037f10"
+    },
+    {
+      "path": "peoplewatch/hybrid.py",
+      "sha256": "21a26554d629b0cc9ac9e12cd500977f376f048c810168382ff7995774d31edd"
+    },
+    {
+      "path": "peoplewatch/inventory.py",
+      "sha256": "723152c791a1b853bcb75ff451e070a6df2ae4296bfd83ddaecabdead414b4ad"
+    },
+    {
+      "path": "peoplewatch/inventory_experiments.py",
+      "sha256": "51d99d8a70e24f6c009e13f43e89b6e5ef7f8f8ca9d9493ee91d9f6e62fdc69d"
+    },
+    {
+      "path": "peoplewatch/inventory_memory.py",
+      "sha256": "e94450d4d18fb42277bc3a6c4984a171f0232da1f6d730d3fb9f6f6089059bbe"
+    },
+    {
+      "path": "peoplewatch/inventory_runtime.py",
+      "sha256": "67dcb33261fa418111b4bc40ae019b44c80282ed25d7dc5fbb254aae57a4aae9"
+    },
+    {
+      "path": "peoplewatch/issue_impact.py",
+      "sha256": "a5bfe0b7ef91ac229375b7a0aea811d82ce592e2659b8ee448f662eaaacb1669"
+    },
+    {
+      "path": "peoplewatch/pipeline.py",
+      "sha256": "051fe8334d45e2535f58f9fe09c11922290b609edc777cc414c89dba72fd0a3c"
+    },
+    {
+      "path": "peoplewatch/preparation_jobs.py",
+      "sha256": "eb8a77cc2cb59df0ef11649cee38721e1aa12e07225f023cee373a433f1c3083"
+    },
+    {
+      "path": "peoplewatch/prepared_source.py",
+      "sha256": "9e864beed81b2f2a6894821000db60a0d52d9e2cbef05daa4e7a8b52ac73de64"
+    },
+    {
+      "path": "peoplewatch/reconcile.py",
+      "sha256": "3c2c3acaf4b7fa949ba99d70683190be9aeba88b6d69c6c8050cc135a6f3e321"
+    },
+    {
+      "path": "peoplewatch/reflections.py",
+      "sha256": "39b92a7a43aa73392012436fe954792eebf5b5a8b0f2b77dbc170e4dbb521a22"
+    },
+    {
+      "path": "peoplewatch/review.py",
+      "sha256": "c1d51c60012ab19b221a8dc25db3d74834fadb092ce755e327ae883fed6d43d1"
+    },
+    {
+      "path": "peoplewatch/review_issues.py",
+      "sha256": "3894e681653da28a624c8e58a2bf0ae1d0f11c221c4c4e7ef0c1a89d692283c1"
+    },
+    {
+      "path": "peoplewatch/scene.py",
+      "sha256": "723684ab1d8f26565c62b44e5cb7195aef8af23489009078fd67e70748c3ea53"
+    },
+    {
+      "path": "peoplewatch/sequence_context.py",
+      "sha256": "b4519c6bb093b9c900ee7bdcca21b938aca374f7cd5bea11b562129ef52020dd"
+    },
+    {
+      "path": "peoplewatch/sequence_review.py",
+      "sha256": "46d57fa88f56544e068676b8588be5c9f122b63682cdb312d4714e74d6e80f9a"
+    },
+    {
+      "path": "peoplewatch/service.py",
+      "sha256": "27bbdabf24e7749abeb0ad41797a6d6ec762566874a1b35339afccbf4b90d9e1"
+    },
+    {
+      "path": "peoplewatch/service_jobs.py",
+      "sha256": "cc971b53bf1e83409e1ba760b0c995c67d80439fd25437d011d208c64af67592"
+    },
+    {
+      "path": "peoplewatch/solo_cash_review.py",
+      "sha256": "5f0bda0d437a8c2b66754e6c60efa0b9d2933d98873f45a062ceb0821a2406fa"
+    },
+    {
+      "path": "peoplewatch/solo_cash_sequence.py",
+      "sha256": "92f1d47b44d3688e08b517cd670e572366e69cebb1fa8fab7c97fbe6f2d78b7b"
+    },
+    {
+      "path": "peoplewatch/temporal_refinement.py",
+      "sha256": "65651d7703551f67b2842368ee29e299faa2be752cb295121e44d2e8af324e93"
+    },
+    {
+      "path": "peoplewatch/tracking.py",
+      "sha256": "10924287ab1d56c93a40235ce9777fc31a98407e3416b51484820c0abde7d0f3"
+    },
+    {
+      "path": "peoplewatch/verdict.schema.json",
+      "sha256": "874417962bff830a5115be74f9e58e4a2ef25afead1df23bee3415928a33f673"
+    },
+    {
+      "path": "peoplewatch/video.py",
+      "sha256": "0b7f2fe2a436cbdc15399688201211a2d1722a48e1389f91fd25685eb06b1e17"
+    },
+    {
+      "path": "peoplewatch/violation_reporting.py",
+      "sha256": "36aacfa3f085ec3a7550bd2343476249ee717ed82ba0ff899c06c287295021c5"
+    },
+    {
+      "path": "peoplewatch/__init__.py",
+      "sha256": "091475dc01f6f03deddef69bb1118b40b8cf33e4f4ab04a6dbd32fc522e41678"
+    },
+    {
+      "path": "peoplewatch/__main__.py",
+      "sha256": "90586156f3893eaaff7afb4cc57111215e1669caef3434426ed0f52922018859"
+    },
+    {
+      "path": "cashwatch/detector.py",
+      "sha256": "fec52f60a7273096b7e58876a9fd1590948cae45ad29e79743070f3175409c9c"
+    },
+    {
+      "path": "cashwatch/events.py",
+      "sha256": "f037e486e11e2e6fdea1e4af9b785fd15de75985b1d3d07a83bec393ea328337"
+    },
+    {
+      "path": "cashwatch/pipeline.py",
+      "sha256": "d2dbeac1d2417ef21baf3278fcab7eb4b87340e85bd81cf84c4a41562c7362b7"
+    },
+    {
+      "path": "cashwatch/planning.py",
+      "sha256": "2b12c9b49b922fb9cd3c0f492e89b3b80f9ab874c6030aa32ef1266f17f47368"
+    },
+    {
+      "path": "cashwatch/video.py",
+      "sha256": "2726263c3dfc5c18c0680ff57a88a2f9e4f753496e61448441a0971a48d1fce0"
+    },
+    {
+      "path": "cashwatch/__init__.py",
+      "sha256": "e8b708639504a5df807229089fc6f05fce317f8eb468de87b4d117eb18c0668a"
+    },
+    {
+      "path": "cashwatch/__main__.py",
+      "sha256": "88db536a1fb140f3cecc99528d6e8cf401525f8dc887cd2cc01aa2d4e10821da"
+    },
+    {
+      "path": "cloud/__init__.py",
+      "sha256": "2c00222a9e74438addd5f8616f6c17eba72d8e4edc76550203164c005e36d491"
+    },
+    {
+      "path": "cloud/model.py",
+      "sha256": "ce32d0a9e3aa7961991986f3e094997d51ca6504625dc8bc000c312001b39762"
+    }
+  ]
+}

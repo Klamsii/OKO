@@ -1,4 +1,5 @@
 .env
+.env.*
 .git/
 .claude/
 .venv/
@@ -8,3 +9,4 @@ private_asset_pack/
 qa/
 **/__pycache__/
 .pytest_cache/
+engine/

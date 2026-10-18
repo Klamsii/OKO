@@ -45,7 +45,7 @@ async def lifespan(_: FastAPI):
         service.shutdown()
 
 
-app = FastAPI(title="oko", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="OKA", version="1.1.0", lifespan=lifespan)
 app.mount("/static", FrontendStaticFiles(directory=web_dir), name="static")
 # A release-specific directory keeps relative JS imports and CSS URLs in the
 # same release too. Querying only app.js does not refresh its cached imports.
@@ -100,13 +100,13 @@ def require_ui(request: Request):
 
 
 def capabilities_body():
-    detectors = list(settings.detectors) + (["team"] if settings.enable_team_model else [])
-    return {"version": "1.0.0", "formats": list(ALLOWED_EXT),
+    detectors = list(settings.active_detectors())
+    return {"version": "1.1.0", "formats": list(settings.formats()),
             "max_upload_bytes": settings.max_upload_bytes, "max_video_seconds": settings.max_video_seconds,
             "deadline_sec": settings.deadline_seconds, "sample_fps": settings.sample_fps,
             "detectors": detectors,
             "analysis_scope": describe_analysis(detectors, command_configured=bool(settings.model_command)),
-            "local_only": True, "archive_scope": "installation",
+            "local_only": True, "analysis_backend": settings.analysis_backend, "archive_scope": "installation",
             "local_asset_pack": "/local-pack/manifest.json" if local_game_assets else None}
 
 
@@ -241,6 +241,14 @@ def ui_health():
     return {"ok": True, **capabilities_body()}
 
 
+@app.get("/ui/v1/model-health", dependencies=[Depends(require_ui)])
+def model_health():
+    if settings.analysis_backend != "datathon":
+        return {"ready": None, "message": "Включён локальный детектор, Qwen не подключён."}
+    from .datathon import check_health
+    return check_health(settings.datathon_api_url, settings.datathon_api_key)
+
+
 @app.get("/ui/v1/catalog", dependencies=[Depends(require_ui)])
 def catalog():
     body = catalog_payload()
@@ -260,12 +268,13 @@ def _header_looks_video(header, extension):
 
 
 async def _accept(file, request, origin):
+    accepted_at = time.time()
     if file is None:
         raise HTTPException(400, "Передайте видео в поле file")
     filename = (file.filename or "").replace("\\", "/").rsplit("/", 1)[-1]
     extension = Path(filename).suffix.lower()
-    if extension not in ALLOWED_EXT:
-        raise HTTPException(415, "Поддерживаются: " + ", ".join(ALLOWED_EXT))
+    if extension not in settings.formats():
+        raise HTTPException(415, "Поддерживаются: " + ", ".join(settings.formats()))
     key = request.headers.get("Idempotency-Key")
     if key and (len(key) > 128 or not key.isascii()):
         raise HTTPException(400, "Некорректный ключ идемпотентности")
@@ -291,7 +300,7 @@ async def _accept(file, request, origin):
         with destination.open("rb") as stream:
             if not _header_looks_video(stream.read(12), extension):
                 raise HTTPException(415, "Содержимое файла не похоже на видео выбранного формата")
-        snapshot = {"pipeline": "oko", "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
+        snapshot = {"pipeline": "oka", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
                     "analysis_scope": capabilities_body()["analysis_scope"],
                     "threshold": settings.threshold, "review_threshold": settings.review_threshold,
                     "sample_fps": settings.sample_fps, "version": "1.0.0", "deadline_seconds": settings.deadline_seconds,
@@ -299,7 +308,7 @@ async def _accept(file, request, origin):
         fingerprint = hashlib.sha256((digest.hexdigest() + json.dumps(snapshot, sort_keys=True)).encode()).hexdigest()
         try:
             result = db.create_run(settings.data_dir, destination, filename, VIDEO_MIME[extension],
-                                   digest.hexdigest(), key, fingerprint, origin, snapshot)
+                                   digest.hexdigest(), key, fingerprint, origin, snapshot, accepted_at=accepted_at)
         except db.QueueFullError as exc:
             raise HTTPException(503, str(exc))
         except ValueError as exc:
@@ -390,7 +399,7 @@ def reanalyze(job_id: str, request: Request):
         destination = settings.data_dir / "uploads" / (uuid.uuid4().hex + path.suffix)
         shutil.copyfile(path, destination)
     try:
-        snapshot = {"pipeline": "oko", "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
+        snapshot = {"pipeline": "oka", "analysis_backend": settings.analysis_backend, "detectors": capabilities_body()["detectors"], "max_queue": settings.max_queue,
                     "analysis_scope": capabilities_body()["analysis_scope"],
                     "threshold": settings.threshold, "review_threshold": settings.review_threshold,
                     "sample_fps": settings.sample_fps, "version": "1.0.0", "deadline_seconds": settings.deadline_seconds,
@@ -439,4 +448,3 @@ def video(job_id: str):
                                    headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"})
     response.run_id = job_id
     return response
-

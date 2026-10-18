@@ -1,0 +1,14 @@
+# Separate GPU environment; do not install into the website's .venv.
+torch==2.8.0
+torchvision==0.23.0
+transformers==5.20.1
+accelerate==1.15.0
+peft==0.21.0
+av==19.0.1
+Pillow==12.3.0
+opencv-python==4.11.0.86
+ultralytics==8.3.221
+fastapi==0.143.3
+uvicorn==0.54.0
+python-multipart==0.0.32
+httpx==0.28.1

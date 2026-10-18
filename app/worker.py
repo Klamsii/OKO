@@ -73,7 +73,7 @@ def _stop_process(process):
 def process_integrated_job(job: dict, settings: Settings, stop_event=None) -> None:
     snapshot = json.loads(job.get("config_json") or "{}")
     settings = replace(settings, **{key: snapshot[key] for key in (
-        "threshold", "review_threshold", "sample_fps", "deadline_seconds", "max_video_seconds") if key in snapshot},
+        "threshold", "review_threshold", "sample_fps", "deadline_seconds", "max_video_seconds", "analysis_backend") if key in snapshot},
         enable_team_model="team" in snapshot.get("detectors", settings.pipeline_settings().detectors))
     token = job.get("execution_token")
     output = settings.data_dir / "staged" / f"{job['id']}.json"
@@ -95,6 +95,9 @@ def process_integrated_job(job: dict, settings: Settings, stop_event=None) -> No
         options["data_dir"] = str(settings.data_dir)
         request = {"job_id": job["id"], "path": job["file_path"], "settings": options,
                    "time_budget": budget, "output_path": str(output), "progress_path": str(progress_file)}
+        if settings.analysis_backend == "datathon":
+            # Credentials travel only over the child's stdin, never command-line, DB or logs.
+            request["remote"] = {"url": settings.datathon_api_url, "key": settings.datathon_api_key}
         environment = {key: value for key, value in os.environ.items()
                        if not any(secret in key.upper() for secret in ("API_KEY", "TOKEN", "COOKIE", "PASSWORD", "SECRET"))}
         environment.update(PYTHONIOENCODING="utf-8", PYTHONUTF8="1", HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
@@ -133,6 +136,14 @@ def process_integrated_job(job: dict, settings: Settings, stop_event=None) -> No
                 error = log_file.read_text(encoding="utf-8", errors="replace").strip().splitlines()
                 raise ValueError(error[-1][:500] if error else "Ошибка локального анализа")
             payload = json.loads(output.read_text(encoding="utf-8"))
+            if settings.analysis_backend == "datathon":
+                timings = payload["result"].setdefault("timings", {})
+                timings["worker_sec"] = timings.get("total_sec")
+                timings["total_sec"] = max(0, time.time() - float(accepted))
+                timings["includes_queue"] = True
+                # Keep save-retry data identical to the report accepted into SQLite.
+                from .analysis_process import atomic_json
+                atomic_json(output, payload)
             if db.complete_run(settings.data_dir, job["id"], payload["api"], payload["result"], token):
                 output.unlink(missing_ok=True)
     except Exception as exc:

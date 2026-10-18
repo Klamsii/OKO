@@ -29,6 +29,15 @@ class Settings:
     embedded_worker: bool = False
     enable_team_model: bool = False
     session_hours: int = 12
+    analysis_backend: str = "local"
+    datathon_api_url: str = ""
+    datathon_api_key: str = ""
+
+    def active_detectors(self):
+        return ("datathon",) if self.analysis_backend == "datathon" else self.detectors + (("team",) if self.enable_team_model else ())
+
+    def formats(self):
+        return (".mov",) if self.analysis_backend == "datathon" else (".mov", ".qt", ".mp4", ".m4v", ".avi", ".mkv", ".webm")
 
     def pipeline_settings(self):
         from .oko.config import Settings as PipelineSettings
@@ -48,6 +57,13 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> "Settings":
+        backend = os.getenv("ANALYSIS_BACKEND", "local")
+        if backend not in ("local", "datathon"):
+            raise RuntimeError("ANALYSIS_BACKEND: local или datathon")
+        remote_url = os.getenv("DATATHON_API_URL", "").rstrip("/")
+        if backend == "datathon":
+            from .datathon import validate_url
+            validate_url(remote_url)
         key = os.getenv("API_KEY", "") or os.getenv("OKO_API_KEYS", "").split(",")[0].strip()
         if len(key) < 24 or key == "replace-with-a-long-random-secret-key":
             raise RuntimeError("Задайте уникальный API_KEY длиной не менее 24 символов")
@@ -72,7 +88,7 @@ class Settings:
             data_dir=Path(os.getenv("DATA_DIR", "data")).resolve(),
             rules_path=Path(os.getenv("RULES_PATH", "rules.json")).resolve(),
             api_key=key,
-            max_upload_bytes=max(1, int(os.getenv("MAX_UPLOAD_MB", "500"))) * 1024 * 1024,
+            max_upload_bytes=min(256 if backend == "datathon" else 4096, max(1, int(os.getenv("MAX_UPLOAD_MB", "256")))) * 1024 * 1024,
             max_video_seconds=float(os.getenv("MAX_VIDEO_SECONDS", "3600")),
             model_timeout_seconds=int(os.getenv("MODEL_TIMEOUT_SECONDS", "210")),
             retention_hours=int(os.getenv("RETENTION_HOURS", "24")),
@@ -80,7 +96,7 @@ class Settings:
             model_command=tuple(command),
             ffmpeg=os.getenv("FFMPEG_BIN", "ffmpeg"),
             ffprobe=os.getenv("FFPROBE_BIN", "ffprobe"),
-            deadline_seconds=max(5, min(280, float(os.getenv("OKO_DEADLINE_SEC", "240")))),
+            deadline_seconds=max(5, min(300, float(os.getenv("OKO_DEADLINE_SEC", "300" if backend == "datathon" else "240")))),
             reserve_seconds=max(1, float(os.getenv("OKO_RESERVE_SEC", "20"))),
             max_queue=max(1, int(os.getenv("OKO_MAX_QUEUE", "50"))),
             sample_fps=sample_fps, threshold=threshold, review_threshold=review_threshold,
@@ -88,4 +104,6 @@ class Settings:
             embedded_worker=os.getenv("EMBEDDED_WORKER", "1") == "1",
             enable_team_model=os.getenv("ENABLE_TEAM_MODEL", "0") == "1",
             session_hours=max(1, int(os.getenv("SESSION_HOURS", "12"))),
+            analysis_backend=backend, datathon_api_url=remote_url,
+            datathon_api_key=os.getenv("DATATHON_API_KEY", "") or key,
         )

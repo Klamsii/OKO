@@ -15,6 +15,10 @@ if (-not (Test-Path -LiteralPath $envPath)) {
     Write-Host 'Создан .env с новым API ключом.'
 }
 
+if (Select-String -LiteralPath $envPath -Pattern '^ANALYSIS_BACKEND=datathon$' -Quiet) {
+    Write-Host 'OKA использует наш GPU API. Подключение: .\connect-server.ps1'
+    return
+}
 if (-not (Test-Path -LiteralPath $modelDir)) {
     New-Item -ItemType Directory -Path $modelDir | Out-Null
 }

@@ -43,6 +43,11 @@ def emit_progress(path, stage, progress):
 
 def main():
     request = json.load(sys.stdin)
+    if "remote" in request:
+        from .datathon import analyze_remote
+        payload = analyze_remote(request, lambda stage, progress: emit_progress(request["progress_path"], stage, progress))
+        atomic_json(request["output_path"], payload)
+        return
     options = request["settings"]
     options["data_dir"] = Path(options["data_dir"])
     options["detectors"] = tuple(options["detectors"])

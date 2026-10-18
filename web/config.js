@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  projectName: 'oko', greeting: '> Добро пожаловать на пост наблюдения.',
+  projectName: 'OKA', greeting: '> Добро пожаловать на пост наблюдения.',
   pollIntervalMs: 1500, jobTimeoutMs: 300000,
   audio: {
     musicVolume: .10, musicWhileVideoVolume: .03, musicDuckMultiplier: .30, portalVolume: .16, uiVolume: .08,
@@ -38,5 +38,4 @@ export const CONFIG = Object.freeze({
     exclusions: '.game-nav,.sign-rig,.welcome-message,.key-form,.workspace-heading,.nether-frame,.file-toolbar,.analysis-status,.analysis-error,.chat-panel,.workspace-footer,.report-tools,.timeline-preview,.archive-heading,.archive-panel,.end-exit-footer,.credits-scene,dialog[open]',
   },
 });
-
 

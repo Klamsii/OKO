@@ -3,6 +3,7 @@ import {formatTime} from './player.js';
 import {normalizedEvents} from './chat.js';
 import {segmentedReview} from './controls.js';
 import {analysisScope} from './analysis-scope.js';
+import {modelReport} from './model-report.js';
 
 export class ReportView{
   constructor({player,request,onSeek=()=>{},onSave=()=>{},onReview=()=>{}}){
@@ -42,6 +43,7 @@ export class ReportView{
     if(result.coverage_sec!=null)method.append(h('p',{},`Покрытие: ${finite(result.coverage_sec).toFixed(1)} из ${duration?duration.toFixed(1):'?'} с`));
     if(result.detectors?.length&&!(result.notes||[]).some(note=>String(note).includes('Активные детекторы:')))method.append(h('p',{},`Активные детекторы: ${result.detectors.map(item=>typeof item==='string'?item:item.name||item.id||'—').join(', ')}`));
     if(method.children.length>1)this.notes.append(method);
+    this.root.querySelector('.model-report')?.remove();this.json.before(modelReport(result,run,time=>{this.player.seek(time);this.mark(time);if(!this.player.available)this.showFrame(time);}));
     this.hidePreview();this.setArchiveState(run);this.review.value=run.review_status||'not_reviewed';this.buildTimeline(result);this.renderJson(run,revision);
     if(!this.player.available)this.showFrame(finite(run.last_playback_sec));else this.viewer.hidden=true;
   }
@@ -58,15 +60,18 @@ export class ReportView{
       this.pre.textContent=JSON.stringify(data,(key,value)=>key==='image_base64'&&typeof value==='string'&&value.length>70?`${value.slice(0,24)}… (${Math.round(value.length*.75/1024)} КБ JPEG)`:value,2);
     }catch(error){if(this.revision===revision)this.pre.textContent=`JSON недоступен: ${error.message}`;}
   }
-  thumb(second){
+  frameAt(second){
     const thumbs=this.current?.result.thumbs||[],value=thumbs[Math.max(0,Math.min(Math.floor(second),thumbs.length-1))];
-    return imageSrc(typeof value==='string'?value:value?.image_base64||'');
+    if(value)return {src:imageSrc(typeof value==='string'?value:value?.image_base64||''),second:typeof value==='object'&&value.timestamp_sec!=null?value.timestamp_sec:Math.floor(second)};
+    const frames=(this.current?.result.violations||[]).flatMap(event=>event.frames||event.evidence_frames||[]).filter(frame=>frame.image_base64&&Number.isFinite(Number(frame.timestamp_sec)));
+    const frame=frames.sort((a,b)=>Math.abs(a.timestamp_sec-second)-Math.abs(b.timestamp_sec-second))[0];
+    return frame?{src:imageSrc(frame.image_base64),second:frame.timestamp_sec}:null;
   }
-  showFrame(second){const src=this.thumb(second);this.viewer.hidden=!src;if(src){this.viewerImage.src=src;this.viewerCaption.textContent=`Кадр ${formatTime(second)}. Исходный кодек может не поддерживаться браузером.`;}}
+  showFrame(second){const frame=this.frameAt(second);this.viewer.hidden=!frame;if(frame){this.viewerImage.src=frame.src;this.viewerCaption.textContent=`Ближайший сохранённый кадр ${formatTime(frame.second,true)}. Исходный кодек может не поддерживаться браузером.`;}}
   hidePreview(){this.tip.hidden=true;this.tipAnchor=null;}
   showPreview(button,second,event){
-    const src=this.thumb(second);if(!src){this.hidePreview();return;}
-    this.tipAnchor=button;this.tipImage.src=src;this.tipCaption.textContent=`${formatTime(second)}${event?` · ${event.type}`:''}`;this.tip.hidden=false;
+    const frame=this.frameAt(second);if(!frame){this.hidePreview();return;}
+    this.tipAnchor=button;this.tipImage.src=frame.src;this.tipCaption.textContent=`Кадр ${formatTime(frame.second,true)}${event?` · ${event.type}`:''}`;this.tip.hidden=false;
     const rect=button.getBoundingClientRect(),box=this.tip.getBoundingClientRect(),gap=10,pad=12;
     this.tip.style.left=`${Math.max(pad,Math.min(rect.left+rect.width/2-box.width/2,innerWidth-box.width-pad))}px`;
     this.tip.style.top=`${Math.max(pad,Math.min(rect.top>=box.height+gap+pad?rect.top-box.height-gap:rect.bottom+gap,innerHeight-box.height-pad))}px`;

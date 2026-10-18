@@ -6,7 +6,7 @@ Push-Location $taskProjectRoot
 try {
     if ($Docker) {
         if (-not (Get-Command docker -ErrorAction SilentlyContinue)) { throw 'Docker Desktop не найден.' }
-        docker compose up --build -d
+        docker compose -f compose.datathon.yaml up --build -d
         if ($LASTEXITCODE -ne 0) { throw 'Не удалось запустить Docker Compose.' }
         Write-Host 'Сервис запущен: http://localhost:8000/'
     } else {
@@ -24,8 +24,7 @@ try {
             if ($LASTEXITCODE -ne 0) { throw 'Не удалось установить зависимости.' }
             Set-Content -LiteralPath $taskStamp -Value $taskRequirementsHash
         }
-        Write-Host "oko: http://127.0.0.1:$Port/ (ключ находится в .env)"
+        Write-Host "OKA: http://127.0.0.1:$Port/ (подключение: .\connect-server.ps1; ключ находится в .env)"
         & $taskPython -m app --port $Port
     }
 } finally { Pop-Location }
-

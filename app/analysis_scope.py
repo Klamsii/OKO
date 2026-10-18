@@ -8,6 +8,22 @@ from __future__ import annotations
 
 def describe_analysis(detectors, *, command_configured=False, provenance="configuration"):
     names = list(dict.fromkeys(detectors or ()))
+    if names == ["datathon"]:
+        return {
+            "mode": "datathon", "label": "OKA · Qwen3-VL · анализ кассовых операций",
+            "method": "self_hosted_qwen3_vl", "detectors": names,
+            "checked_rule_ids": [], "rule_coverage_known": False, "full_audit_available": False,
+            "requires_llm": True, "provenance": provenance,
+            "verdict_labels": {"violation": "Обнаружены признаки возможных нарушений",
+                               "no_violation": "Нарушение не обнаружено"},
+            "limitations": [
+                "Оригинальное видео анализирует собственный сервер команды с Qwen3-VL. Коммерческие облачные AI API не используются.",
+                "Проверяются видимые действия с деньгами, хранение денег и уход сотрудника; полнота распознавания не гарантирована.",
+                "Возможные нарушения требуют просмотра человеком. Неопределённость, влияющая на вердикт, сохраняется в отчёте.",
+                "Проверка отдельных кадров не подтверждает отсутствие событий между ними. Неизвестные границы эпизода не заменяются точными таймкодами.",
+                "Ссылки на нормы передаются из модели; непроверенная применимость нормы отмечается отдельно. Лица не идентифицируются.",
+            ],
+        }
     camera = "obstruction" in names
     external = "team" in names
     known = camera and not external and set(names) == {"obstruction"}

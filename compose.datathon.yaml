@@ -1,0 +1,16 @@
+# Use explicitly: docker compose -f compose.datathon.yaml up --build -d
+# DATATHON_API_URL must be reachable from this container (not container loopback).
+services:
+  oka:
+    build: .
+    env_file: .env
+    environment:
+      ANALYSIS_BACKEND: datathon
+      DATA_DIR: /data
+      EMBEDDED_WORKER: "1"
+    command: ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped

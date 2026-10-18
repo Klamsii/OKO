@@ -63,8 +63,13 @@ function applyCapabilities(info){
   state.caps=info.capabilities||info.caps||info;
   state.caps.analysis_scope=analysisScope(state.caps);
   const scope=state.caps.analysis_scope;
+  if(scope?.mode==='datathon'){
+    let health=$('model-health');if(!health){health=h('p',{id:'model-health',role:'status'});$('analysis-scope')?.after(health);}
+    health.textContent='Проверяем подключение Qwen…';
+    request('/ui/v1/model-health').then(data=>{health.textContent=data.message;}).catch(()=>{health.textContent='Не удалось проверить готовность Qwen.';});
+  }
   const scopeNotice=$('analysis-scope');
-  if(scopeNotice){scopeNotice.replaceChildren(h('span',{class:'scope-label'},scope?.label||'Проверка видео'),h('span',{},scope?.mode==='camera_visibility'?'Сейчас доступна проверка перекрытия камеры · V13. LLM не подключена.':(scope?.limitations||[]).join(' ')||'Возможности проверки зависят от подключённых детекторов.'));}
+  if(scopeNotice){scopeNotice.replaceChildren(h('span',{class:'scope-label'},scope?.label||'Проверка видео'),h('span',{},scope?.mode==='camera_visibility'?'Сейчас доступна проверка перекрытия камеры · V13. LLM не подключена.':scope?.mode==='datathon'?'Проверка действий с деньгами и кассовых операций. Возможные нарушения и спорные моменты — в подробном отчёте.':(scope?.limitations||[]).join(' ')||'Возможности проверки зависят от подключённых детекторов.'));}
   const formats=Array.isArray(state.caps.formats)?state.caps.formats:['.mov'];
   state.formats=formats.map(value=>String(value).toLowerCase().replace(/^\./,''));
   $('video-file').accept=state.formats.map(value=>'.'+value).join(',');
@@ -73,7 +78,7 @@ function applyCapabilities(info){
   $('upload-button').setAttribute('aria-label',`UPLOAD — выбрать видео (${label})`);
   $('drop-zone').setAttribute('aria-label',`Область видео. Enter — выбрать; можно перетащить ${label}`);
   for(const tag of document.querySelectorAll('.drop-format'))tag.textContent=label;
-  $('playback-error').textContent='Браузер не воспроизводит кодек этого видео. Локальный алгоритм может прочитать запись; результат проверки будет доступен после обработки.';
+  $('playback-error').textContent='Браузер не воспроизводит кодек этого видео. Сервер анализа может прочитать запись; результат проверки будет доступен после обработки.';
   if(info.local_asset_pack||state.caps.local_asset_pack)audio.useLocalPack(info.local_asset_pack||state.caps.local_asset_pack).catch(()=>{});
   updateControls();
 }

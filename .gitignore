@@ -27,3 +27,14 @@ qa/integration-runtime/
 qa/ui-refresh-runtime/
 qa/ui-refresh-server.log
 qa/fixtures/
+engine/.venv/
+engine/models/
+engine/jobs/
+*.safetensors
+*.pt
+*.pth
+*.pem
+*.key
+*.mov
+*.MOV
+*.xlsx

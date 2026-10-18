@@ -225,7 +225,7 @@ def _discard_temp(conn, path):
 
 def create_run(data_dir: Path, upload_path: Path, filename: str, mime_type: str, content_hash: str,
                idempotency_key: str | None, fingerprint: str, origin: str = 'ui',
-               config_snapshot: dict | None = None) -> dict:
+               config_snapshot: dict | None = None, accepted_at: float | None = None) -> dict:
     data_dir, upload = Path(data_dir), Path(upload_path).resolve()
     if idempotency_key is not None and (not idempotency_key or len(idempotency_key) > 256):
         raise ValueError('Некорректный ключ идемпотентности.')
@@ -279,7 +279,7 @@ def create_run(data_dir: Path, upload_path: Path, filename: str, mime_type: str,
                 (id,file_path,status,filename,mime_type,origin,video_asset_id,idempotency_key,fingerprint,
                  config_json,stage,archive_status,persistent,accepted_at) VALUES(?,?,'queued',?,?,?,?,?,?,?,'queued','saving',?,?)''',
                 (run_id, str(stored), _name(filename), mime_type, origin, asset_id, idempotency_key,
-                 fingerprint, config, 0 if origin == 'api' else 1, time.time()))
+                 fingerprint, config, 0 if origin == 'api' else 1, accepted_at if accepted_at is not None else time.time()))
             conn.commit()
             return {'job_id': run_id, 'created': True}
         except Exception:

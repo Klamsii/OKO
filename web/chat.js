@@ -1,5 +1,6 @@
 import {formatTime} from './player.js';
 import {$,h,imageSrc,externalLink} from './dom.js';
+import {eventDetails} from './model-report.js';
 
 export function normalizedEvents(result){
   const normalize=(event,index,review=false)=>{
@@ -41,13 +42,14 @@ export class EventChat{
     const strip=h('div',{class:'evidence-thumbnails'});
     event.evidence_frames.forEach((frame,index)=>{
       const src=imageSrc(frame.image_base64);if(!src)return;
-      const caption=`${index===0?'Главный кадр · ':''}${formatTime(Number(frame.timestamp_sec),true)} · ${event.type}`;
+      const caption=`${formatTime(Number(frame.timestamp_sec),true)} · ${event.type}`;
       strip.append(h('button',{type:'button',class:'evidence-thumb','aria-label':`Открыть ${caption}`,onclick:()=>{
         $('evidence-image').src=src;$('evidence-image').alt=caption;$('evidence-caption').textContent=caption;$('evidence-dialog').showModal();
       }},h('img',{src,alt:caption,loading:'lazy'}),h('span',{},formatTime(Number(frame.timestamp_sec),true))));
     });
     if(strip.children.length)entry.append(strip);
-    if(rule.id||rule.citation||rule.refs?.length){
+    if(event.timeline_status||event.normative_basis)entry.append(eventDetails(event,time=>this.player.seek(time)));
+    if(!event.normative_basis&&(rule.id||rule.citation||rule.refs?.length)){
       const details=h('details',{class:'rule-details'},h('summary',{},'Правило и источник'));
       if(rule.citation)details.append(h('p',{},rule.citation));
       for(const ref of rule.refs||[])if(ref.verified)details.append(h('p',{},externalLink(ref.url,`${ref.source||''}, ${ref.point||''}`),ref.quote?h('q',{},ref.quote):null));

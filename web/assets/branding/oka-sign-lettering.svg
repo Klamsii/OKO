@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" shape-rendering="crispEdges">
+ <title>OKA</title>
+ <defs><path id="letters" fill-rule="evenodd" d="M19 9h58v8h8v55h-8v8H19v-8h-8V17h8zm14 20v31h30V29zm78-20h21v27h12V24h12V9h23v20h-12v12h-12v10h12v12h12v17h-24V68h-12V56h-11v24h-21zm102 0h50v8h8v8h8v55h-22V57h-30v23h-22V25h8V17h8zm14 20v11h30V29z"/></defs>
+ <g transform="translate(12)"><use href="#letters" transform="translate(1 2)" fill="#9a704c" opacity=".4"/><use href="#letters" fill="#3c302a"/><path fill="#4b5b48" d="M33 29h30v31H33z"/><path fill="#263e31" d="M45 29h8v31h-8z"/></g>
+</svg>
