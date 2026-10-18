@@ -51,7 +51,7 @@ const progress=h('progress',{id:'run-progress',max:1,value:0,'aria-label':'Хо�
 const reconnect=h('button',{type:'button',class:'game-button',hidden:true,onclick:()=>resumeConnections()},'Восстановить связь');$('analysis-error').after(reconnect);
 
 function showError(error){$('analysis-error').textContent=typeof error==='string'?error:error?.message||'Не удалось выполнить действие.';$('analysis-error').hidden=!error;}
-function setAuthenticated(value){state.authenticated=value;$('api-key').required=!value;if(!value){clearTimeout(healthTimer);state.modelHealth=null;}}
+function setAuthenticated(value){state.authenticated=value;$('api-key').required=!value;$('welcome-form').hidden=value;$('welcome-connecting').hidden=true;if(!value){clearTimeout(healthTimer);state.modelHealth=null;}}
 function setStatus(message,phase='ready'){$('status-text').textContent=message;$('analysis-status').dataset.state=phase;}
 function checkName(){return state.caps.analysis_scope?.label||'Проверка видео';}
 function displayContext(){return state.displayRunId?runs.get(state.displayRunId):null;}
@@ -311,6 +311,6 @@ async function boot(){
   chat.clear();updateControls();$('typed-message').textContent=CONFIG.greeting;
   const initial=route();
   try{const info=await request('/ui/v1/session');if(loginAttempted||intro.screen!=='connect')return;setAuthenticated(true);applyCapabilities(info);await afterLogin(initial.world==='credits'?'end':initial.world==='overworld'&&state.caps.public_ui_access?'nether':initial.world,{instant:state.caps.public_ui_access});}
-  catch(error){if(loginAttempted||intro.screen!=='connect')return;if(error.status!==401){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}state.authTarget=initial.world==='overworld'?'nether':initial.world;await navigate('overworld',false);}
+  catch(error){if(loginAttempted||intro.screen!=='connect')return;setAuthenticated(false);if(error.status!==401){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}state.authTarget=initial.world==='overworld'?'nether':initial.world;await navigate('overworld',false);}
 }
 boot().catch(error=>{showError(error);$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;});
