@@ -32,6 +32,7 @@ class Settings:
     analysis_backend: str = "local"
     datathon_api_url: str = ""
     datathon_api_key: str = ""
+    public_ui_access: bool = False
 
     def active_detectors(self):
         return ("datathon",) if self.analysis_backend == "datathon" else self.detectors + (("team",) if self.enable_team_model else ())
@@ -106,4 +107,5 @@ class Settings:
             session_hours=max(1, int(os.getenv("SESSION_HOURS", "12"))),
             analysis_backend=backend, datathon_api_url=remote_url,
             datathon_api_key=os.getenv("DATATHON_API_KEY", "") or key,
+            public_ui_access=os.getenv("PUBLIC_UI_ACCESS", "0") == "1",
         )

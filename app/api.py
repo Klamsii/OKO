@@ -90,6 +90,12 @@ def _session_token():
     return encoded + "." + signature
 
 
+def _set_session_cookie(response: Response, request: Request):
+    response.set_cookie(COOKIE, _session_token(), max_age=settings.session_hours * 3600,
+                        httponly=True, samesite="strict", secure=_browser_origin(request).startswith("https://"), path="/")
+    response.headers["Cache-Control"] = "no-store"
+
+
 def _has_session(request):
     raw = request.cookies.get(COOKIE, "")
     try:
@@ -229,14 +235,16 @@ async def login(request: Request, response: Response):
         raise HTTPException(400, "Некорректный запрос")
     if not isinstance(key, str) or not key_valid(key):
         raise HTTPException(401, "Неверный ключ доступа")
-    response.set_cookie(COOKIE, _session_token(), max_age=settings.session_hours * 3600,
-                        httponly=True, samesite="strict", secure=_browser_origin(request).startswith("https://"), path="/")
-    response.headers["Cache-Control"] = "no-store"
+    _set_session_cookie(response, request)
     return capabilities_body()
 
 
-@app.get("/ui/v1/session", dependencies=[Depends(require_ui)])
-def session():
+@app.get("/ui/v1/session")
+def session(request: Request, response: Response):
+    if settings.public_ui_access and not _has_session(request):
+        _set_session_cookie(response, request)
+    elif not _has_session(request):
+        raise HTTPException(401, "Войдите с ключом доступа")
     return capabilities_body()
 
 

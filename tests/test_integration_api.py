@@ -48,6 +48,18 @@ def login(client):
     return response
 
 
+def test_public_ui_auto_session_keeps_direct_api_key_private(service, monkeypatch):
+    api, client, settings = service
+    monkeypatch.setattr(api, 'settings', replace(settings, public_ui_access=True))
+    response = client.get('/ui/v1/session')
+    assert response.status_code == 200
+    assert 'httponly' in response.headers['set-cookie'].lower()
+    assert KEY not in response.text
+    assert client.get('/ui/v1/runs').status_code == 200
+    assert client.get('/api/v1/capabilities').status_code == 401
+    assert client.post('/ui/v1/session', json={'api_key': 'invalid'}).status_code == 401
+
+
 def submit(client, *, key='request-one', filename='clip.mov', payload=VIDEO_BYTES, ui=True):
     headers = {'Idempotency-Key': key} if key else {}
     if not ui:
