@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OKO — проект анализа кассовых видеозаписей с помощью Qwen3-VL и проверкой выводов человеком.">
+  <title>OKO — анализ кассовых видео</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#100e18;color:#f5ebd6}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#100e18 0%,#1b1320 65%,#100e18 100%)}
+    a{color:inherit}a:focus-visible{outline:3px solid #f3bf71;outline-offset:4px}
+    .hero{position:relative;isolation:isolate;min-height:590px;padding:24px max(24px,calc((100vw - 1120px)/2));background:linear-gradient(90deg,rgba(13,10,20,.94),rgba(13,10,20,.72) 53%,rgba(13,10,20,.4)),url("assets/overworld-soft.png") center/cover}
+    .hero::after{content:"";position:absolute;inset:auto 0 0;height:90px;background:linear-gradient(transparent,#1b1320);z-index:-1}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:20px;font-weight:700;letter-spacing:.08em}nav img{width:105px;height:auto}
+    .chip{border:1px solid #d49c62;background:#201721c9;padding:9px 13px;border-radius:3px;color:#f6d3a1;font-size:.76rem;text-transform:uppercase}
+    .hero-content{max-width:690px;padding:105px 0 125px}.eyebrow{color:#f0b66e;text-transform:uppercase;font-size:.8rem;letter-spacing:.2em;font-weight:800}
+    h1{font-size:clamp(2.9rem,6vw,5.8rem);line-height:1.04;margin:17px 0 22px;letter-spacing:-.045em}p{line-height:1.65}.lead{font-size:clamp(1.1rem,2vw,1.35rem);color:#ded0ce;max-width:620px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 20px;border:2px solid #f2c784;background:#e9b46d;color:#1c1018;text-decoration:none;font-weight:800;border-radius:3px;box-shadow:5px 5px 0 #4e3042}.button.secondary{background:#241a29;color:#f4ddbf}
+    main{max-width:1120px;margin:auto;padding:20px 24px 74px}h2{font-size:clamp(1.5rem,3vw,2.2rem);margin:30px 0 16px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:#28202c;border:1px solid #77545c;border-radius:5px;padding:23px;box-shadow:6px 6px 0 #0d0b14}.card b{color:#f3c27d;font-size:1.05rem}.card p{color:#d6c8cc;margin-bottom:0}
+    .notice{margin-top:30px;border-left:4px solid #e7b56f;background:#241a29;padding:18px 22px;color:#e8d7d0}.notice strong{color:#ffe0aa}footer{border-top:1px solid #493745;color:#b6a9b0;padding:24px;text-align:center;font-size:.9rem}
+    @media(max-width:720px){.hero{min-height:auto;padding:20px 24px}.hero-content{padding:75px 0 95px}.grid{grid-template-columns:1fr}.chip{font-size:.65rem}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav><img src="assets/oko-ender-wordmark.svg" alt="OKO"><span class="chip">AI · видеоаналитика</span></nav>
+    <div class="hero-content">
+      <div class="eyebrow">Наблюдение с проверяемыми выводами</div>
+      <h1>Кассовые операции под контролем</h1>
+      <p class="lead">OKO анализирует видеозаписи с помощью Qwen3-VL, отмечает моменты для проверки и показывает кадры-доказательства. Итоговое решение остаётся за человеком.</p>
+      <div class="actions"><a class="button" href="https://github.com/Klamsii/OKO">Смотреть проект на GitHub</a><a class="button secondary" href="#about">Как это работает</a></div>
+    </div>
+  </header>
+  <main id="about">
+    <h2>Что делает OKO</h2>
+    <div class="grid">
+      <div class="card"><b>Смотрит запись</b><p>Принимает исходное видео и выбирает моменты, где нужен подробный анализ.</p></div>
+      <div class="card"><b>Отмечает события</b><p>Связывает наблюдения с таймкодами и исходными кадрами без выдуманных доказательств.</p></div>
+      <div class="card"><b>Помогает проверяющему</b><p>Показывает возможные нарушения, спорные моменты и причины неопределённости.</p></div>
+    </div>
+    <div class="notice"><strong>О публичной версии:</strong> эта страница размещена на GitHub Pages. Обработка видео требует отдельного защищённого API и GPU-сервера; на GitHub видео не загружается и анализ здесь пока не запускается.</div>
+  </main>
+  <footer>OKO · проект анализа кассовых видеозаписей</footer>
+</body>
+</html>

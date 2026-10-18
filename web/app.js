@@ -103,6 +103,9 @@ function applyCapabilities(info){
   state.caps=info.capabilities||info.caps||info;
   state.caps.analysis_scope=analysisScope(state.caps);
   const scope=state.caps.analysis_scope;
+  const serverModel=state.caps.analysis_backend==='datathon';
+  if($('analysis-host-label'))$('analysis-host-label').textContent=serverModel?'GPU':'LOCAL';
+  if($('analysis-location'))$('analysis-location').textContent=serverModel?'ВИДЕОАНАЛИЗ НА СЕРВЕРЕ КОМАНДЫ':'ВИДЕОАНАЛИЗ В ЛОКАЛЬНОМ КОНТУРЕ';
   if(scope?.mode==='datathon'){
     let health=$('model-health');if(!health){health=h('div',{id:'model-health'},h('span',{id:'model-health-message',role:'status'},'Проверяем подключение Qwen…'),h('button',{id:'model-health-retry',type:'button',onclick:()=>refreshModelHealth()},'Проверить связь'));$('analysis-scope')?.after(health);}
     health.hidden=false;state.modelHealth=null;refreshModelHealth();
@@ -206,10 +209,14 @@ function renderRun(ctx){
   }else if(status==='failed'||status==='cancelled'||ctx.unknown||!['queued','processing'].includes(status)){
     report.clear();chat.clear();setStatus(ctx.unknown?'Связь прервана. Статус требует уточнения.':analysisLabels[status]||analysisLabels.unknown,'error');showError(data.error||ctx.connectionError||'Анализ не завершён. Это не результат без нарушений.');
   }else{
-    const pct=Math.round(Math.max(0,Math.min(1,finite(data.progress)))*100);progress.value=.15+.85*pct/100;
+    const waitingForModel=state.caps.analysis_backend==='datathon'&&status==='processing'&&data.stage==='detect';
+    const pct=Math.round(Math.max(0,Math.min(1,finite(data.progress)))*100);
+    if(waitingForModel){progress.removeAttribute('value');progress.setAttribute('aria-label','Ожидание результата модели');}
+    else{progress.value=.15+.85*pct/100;progress.setAttribute('aria-label','Ход анализа');}
     const started=new Date(data.created_at||0).getTime(),elapsed=Number.isFinite(started)&&started>0?Math.max(0,Math.floor((Date.now()-started)/1000)):null;
-    const label=status==='queued'?`В очереди${data.queue_position?` · место ${data.queue_position}`:''}`:data.stage==='detect'?checkName():data.stage_label||checkName();
-    setStatus(`${label} · ${pct}%${elapsed!==null?` · ${formatTime(elapsed)}`:''}`,status);
+    const label=status==='queued'?`В очереди${data.queue_position?` · место ${data.queue_position}`:''}`:waitingForModel?'Передача и анализ на сервере Qwen':data.stage==='detect'?checkName():data.stage_label||checkName();
+    const limit=waitingForModel&&Number.isFinite(Number(data.deadline_sec))?` / лимит ${formatTime(Number(data.deadline_sec))}`:'';
+    setStatus(`${label}${waitingForModel?'':` · ${pct}%`}${elapsed!==null?` · ${formatTime(elapsed)}${limit}`:''}`,status);
   }
   reconnect.hidden=!ctx.unknown;updateControls();
 }

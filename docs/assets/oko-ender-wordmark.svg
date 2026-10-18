@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 112" shape-rendering="crispEdges" role="img" aria-labelledby="title desc">
+  <title id="title">OKO</title>
+  <desc id="desc">Three hand-drawn pixel capitals with pale stone rims and two teal Ender eyes.</desc>
+  <defs>
+    <!-- A shared eight-sided capital O, cut on a two-pixel grid. -->
+    <path id="o-outline" d="M24 0h40v4h12v8h8v12h4v40h-4v12h-8v8H64v4H24v-4H12v-8H4V64H0V24h4V12h8V4h12Z"/>
+    <path id="k-outline" d="M0 0h24v30h8v-8h8V12h8V0h28v24H64v12H52v16h12v12h12v24H48V76h-8V66h-8v-8h-8v30H0Z"/>
+    <g id="ender-o">
+      <use href="#o-outline" x="2" y="4" fill="#412f25"/>
+      <use href="#o-outline" fill="#302e25"/>
+      <!-- Broad, quiet planes give the eye a crafted rim without noisy texture. -->
+      <path fill="#a5a373" d="M24 4h40v4h12v8h4v12h4v32h-4v12h-8v8H64v4H24v-4H12v-8H8V60H4V28h4V16h8V8h8Z"/>
+      <path fill="#d7d4a0" d="M24 4h40v4h12v8h4v12h-8V20H60V12H28v4H16v12H8V16h8V8h8Z"/>
+      <path fill="#efebbb" d="M24 4h40v4H24ZM16 8h8v4h-8ZM8 16h8v8H8Z"/>
+      <path fill="#85865d" d="M76 28h8v32h-4v12h-8v8H64v4H24v-4H12v-8H8V60h8v8h12v8h32v-8h12V56h4Z"/>
+      <path fill="#626b4f" d="M80 44h4v16h-4v12h-8v8H64v4H24v-4h40v-8h8V60h8Z"/>
+      <!-- The O counter is the iris: stepped jade facets and one narrow pupil. -->
+      <path fill="#254b3e" d="M30 18h28v6h10v12h4v20h-4v12H58v6H30v-6H20V56h-4V36h4V24h10Z"/>
+      <path fill="#3b8d73" d="M30 22h28v6h6v10h4v16h-4v10H54v6H32v-6H24V54h-4V38h4V28h6Z"/>
+      <path fill="#69b49a" d="M30 22h28v6H34v8H24V28h6Z"/>
+      <path fill="#92ceb1" d="M34 22h20v4H34ZM26 28h8v6h-8Z"/>
+      <path fill="#27634f" d="M60 38h8v16h-4v10H54v6H32v-6h20v-8h8Z"/>
+      <path fill="#153c31" d="M38 26h12v6h4v28h-4v6H38v-6h-4V32h4Z"/>
+      <path fill="#102a25" d="M40 28h8v36h-8Z"/>
+      <path fill="#c8e2b9" d="M34 28h4v4h-4Z"/>
+      <path fill="#adc895" d="M22 14h8v4h-8ZM12 30h4v8h-4Z"/>
+    </g>
+  </defs>
+  <g transform="translate(12 10)">
+    <use href="#ender-o"/>
+    <!-- A clear capital K has the same silhouette weight as both O capitals. -->
+    <g transform="translate(126)">
+      <use href="#k-outline" x="2" y="4" fill="#412f25"/>
+      <use href="#k-outline" fill="#302e25"/>
+      <path fill="#b9b186" d="M4 4h16v34h16V26h8V16h8V4h20v16H60v12H48v24h12v12h12v16H52V72h-8V62H32v-8H20v30H4Z"/>
+      <path fill="#ddd5a6" d="M4 4h16v4H8v76H4ZM52 4h20v4H56v12h-8v10h-8v8h-4V26h8V16h8Z"/>
+      <path fill="#797a57" d="M12 12h8v26h16v4H16v38h4v4H8V12ZM48 40v16h12v12h12v16H52V72h-8V62H32v-8H20v-8h16v8h12v10h8v12h12v-4H56V60H44V40Z"/>
+      <path fill="#efe7bc" d="M4 4h16v4H4ZM52 4h20v4H52Z"/>
+    </g>
+    <use href="#ender-o" x="240"/>
+  </g>
+</svg>
