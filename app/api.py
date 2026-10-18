@@ -123,6 +123,7 @@ def capabilities_body():
             "detectors": detectors,
             "analysis_scope": describe_analysis(detectors, command_configured=bool(settings.model_command)),
             "local_only": True, "analysis_backend": settings.analysis_backend, "archive_scope": "installation",
+            "public_ui_access": settings.public_ui_access,
             "local_asset_pack": "/local-pack/manifest.json" if local_game_assets else None}
 
 

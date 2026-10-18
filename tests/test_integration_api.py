@@ -53,6 +53,7 @@ def test_public_ui_auto_session_keeps_direct_api_key_private(service, monkeypatc
     monkeypatch.setattr(api, 'settings', replace(settings, public_ui_access=True))
     response = client.get('/ui/v1/session')
     assert response.status_code == 200
+    assert response.json()['public_ui_access'] is True
     assert 'httponly' in response.headers['set-cookie'].lower()
     assert KEY not in response.text
     assert client.get('/ui/v1/runs').status_code == 200

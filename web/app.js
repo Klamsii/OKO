@@ -133,6 +133,7 @@ const route=()=>{
 };
 async function navigate(world,push=true,{instant=false}={}){
   if(intro.active&&!intro.entering)intro.cancel({clear:true,focus:false});
+  if(world==='overworld'&&state.authenticated&&state.caps.public_ui_access)world='nether';
   if(['nether','end'].includes(world)&&!state.authenticated){state.authTarget=world;world='overworld';}
   const revision=++navigationRevision;if(world!=='credits')credits.stop({notify:false});
   await worlds.ready;if(revision!==navigationRevision)return;
@@ -309,7 +310,7 @@ async function afterLogin(target,options={}){
 async function boot(){
   chat.clear();updateControls();$('typed-message').textContent=CONFIG.greeting;
   const initial=route();
-  try{const info=await request('/ui/v1/session');if(loginAttempted||intro.screen!=='connect')return;setAuthenticated(true);applyCapabilities(info);await afterLogin(initial.world==='credits'?'end':initial.world);}
+  try{const info=await request('/ui/v1/session');if(loginAttempted||intro.screen!=='connect')return;setAuthenticated(true);applyCapabilities(info);await afterLogin(initial.world==='credits'?'end':initial.world==='overworld'&&state.caps.public_ui_access?'nether':initial.world,{instant:state.caps.public_ui_access});}
   catch(error){if(loginAttempted||intro.screen!=='connect')return;if(error.status!==401){$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;}state.authTarget=initial.world==='overworld'?'nether':initial.world;await navigate('overworld',false);}
 }
 boot().catch(error=>{showError(error);$('welcome-error').textContent=error.message;$('welcome-error').hidden=false;});
