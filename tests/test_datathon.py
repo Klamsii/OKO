@@ -27,6 +27,17 @@ MODEL_KEY = "test-model-key-not-a-production-secret"
 MODEL_ID = "model-job-1"
 
 
+def test_datathon_budget_covers_model_queue(monkeypatch):
+    monkeypatch.setenv("API_KEY", KEY)
+    monkeypatch.setenv("ANALYSIS_BACKEND", "datathon")
+    monkeypatch.setenv("DATATHON_API_URL", "https://model.example.test")
+    monkeypatch.setenv("OKO_DEADLINE_SEC", "900")
+    monkeypatch.delenv("OKO_MAX_QUEUE", raising=False)
+    settings = Settings.from_env()
+    assert settings.deadline_seconds == 900
+    assert settings.max_queue == 2
+
+
 def reports():
     buf = io.BytesIO(); Image.new("RGB", (32, 32), "white").save(buf, format="JPEG")
     frame = {"timestamp_sec": 1., "image_base64": base64.b64encode(buf.getvalue()).decode()}
